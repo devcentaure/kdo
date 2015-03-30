@@ -1,0 +1,18 @@
+{
+    "name": "feel project site web",
+    "version": "1.0.0",
+    "main": "bower.json",
+    "ignore": [
+        "**/.*",
+        "Gruntfile.js",
+        "package.json",
+        "bower.json"
+    ],
+    "dependencies": {
+        "foundation": "zurb/bower-foundation",
+        "jquery": "*",
+        "modernizr": "*",
+        "owlcarousel": "~1.3.2"
+    },
+    "devDependencies": {}
+}
