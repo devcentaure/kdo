@@ -1,0 +1,141 @@
+{% extends 'ZIMZIMToolsBundle:Form:Twig/fields.html.twig' %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <small class="error">
+                {% for key,error in errors %}
+                    {% if key != 0 %}
+                        &nbsp;|&nbsp;
+                    {% endif %}
+                    {{ error.message }}
+                {% endfor %}
+            </small>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{# fix for collection and foundation no-label @todo try need rebuild that #}
+{% block form_row %}
+    <div class="row">
+        <div class="small-12 large-12 columns">
+            {% if form.vars.attr['no-label'] is defined and form.vars.label == '__name__label__' %}
+            {% else %}
+                {% if form.vars.attr['label-inline'] is defined %}
+                    {{ form_label(form) }}
+                {% else %}
+                    {{ block('form_label_start') }}
+                {% endif %}
+            {% endif %}
+            {% if(form.vars.errors|length > 0) %}
+                {{ form_widget(form, {'attr': {'class' : 'error'} }) }}
+            {% else %}
+                {{ form_widget(form) }}
+            {% endif %}
+            {{ form_errors(form) }}
+            {% if form.vars.attr['no-label'] is defined and form.vars.label == '__name__label__' %}
+            {% else %}
+                {{ block('form_label_end') }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock form_row %}
+
+{% block form_label_start %}
+    {% spaceless %}
+        {% if label is not sameas(false) %}
+            {% if not compound %}
+                {% set label_attr = label_attr|merge({'for': id}) %}
+            {% endif %}
+            {% if form.vars.errors|length > 0 %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' error')|trim}) %}
+            {% endif %}
+            {% if required %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+            {% endif %}
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ label|trans({}, translation_domain) }}
+            {% if form.vars.required %}
+                <i class="star"></i>
+            {% endif %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_label_start %}
+
+{% block form_label_end %}
+    {% spaceless %}
+        </label>
+    {% endspaceless %}
+{% endblock form_label_end %}
+
+
+{% block button_row %}
+    {% spaceless %}
+        <div class="row">
+            <div class="small-12 large-12 columns text-center">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock button_row %}
+
+{% block button_widget %}
+    {% spaceless %}
+        {% set attr = attr|merge({'class': ('tiny button')}) %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
+    {% endspaceless %}
+{% endblock button_widget %}
+
+
+{% block form_end %}
+    {% spaceless %}
+        {% if not render_rest is defined or render_rest %}
+            {{ form_rest(form) }}
+        {% endif %}
+        </form>
+    {% endspaceless %}
+{% endblock form_end %}
+
+
+{% block centauretime_widget %}
+{% spaceless %}
+    {% set vars = widget == 'text' ? { 'attr': { 'size': 1 }} : {} %}
+    <ul class="small-block-grid-2 no-margin">
+        <li>
+            {{ form_widget(form.hour, vars) }}
+        </li>
+        <li>{{ form_widget(form.minute, vars) }}</li>
+    </ul>
+    {% endspaceless %}
+    {% endblock centauretime_widget %}
+
+{% block form_label %}
+    {% spaceless %}
+        {% if label is not sameas(false) %}
+            {% if not compound %}
+                {% set label_attr = label_attr|merge({'for': id}) %}
+            {% endif %}
+            {% if required %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+            {% endif %}
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+            {% if form.vars.errors|length > 0 %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' error')|trim}) %}
+            {% endif %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ label|trans({}, translation_domain) }}
+            {% if form.vars.required %}
+                <i class="star"></i>
+            {% endif %}
+            </label>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_label %}

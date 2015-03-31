@@ -1,0 +1,8 @@
+apy_data_grid:
+    pagerfanta:
+        enable: true
+        view_class: ZIMZIM\ToolsBundle\PagerFanta\View\FoundationView
+    theme: 'ZIMZIMToolsBundle:APYDataGrid:Twig/blocks.html.twig'
+    limits: [10, 50, 100]
+    no_data_message: "ZIMZIMToolsBundle.grid.generic.nodata"
+    no_result_message: "ZIMZIMToolsBundle.grid.generic.nomessage"

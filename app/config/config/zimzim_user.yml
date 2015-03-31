@@ -1,0 +1,45 @@
+fos_user:
+    db_driver: %zimzim_user.db_driver%
+    firewall_name: %zimzim_user.firewall_name%
+    user_class: %zimzim_user.user_class%
+    registration:
+        form:
+            type: %zimzim_user.registration.form.type%
+    profile:
+        form:
+            type: %zimzim_user.profile.form.type%
+
+hwi_oauth:
+    connect:
+        confirmation: true
+    firewall_name: main
+    http_client:
+        verify_peer: false
+    fosub:
+        username_iterations: 30
+        properties:
+            google: google_id
+            facebook: facebook_id
+#            twitter: twitter_id
+    resource_owners:
+        google:
+            type: google
+            client_id: "%google_id%"
+            client_secret: "%google_secret%"
+            scope: "%google_scope%"
+            options:
+                display: popup
+                access_type: offline
+                approval_prompt: force
+                login_hint: email address
+        facebook:
+            type: facebook
+            client_id: "%facebook_id%"
+            client_secret: "%facebook_secret%"
+            scope: "email"
+            options:
+                display: popup
+#        twitter:
+#            type: twitter
+#            client_id: "%twitter_id%"
+#            client_secret: "%twitter_secret%"

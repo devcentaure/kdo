@@ -1,13 +1,77 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>{% block title %}Welcome!{% endblock title %}</title>
+    <meta name="description" content="{% block metadescription %}{% endblock metadescription %}" />
+    {% if app.environment == 'prod' %}
+        {% stylesheets '../app/Resources/public/css/min.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% else %}
+        {% stylesheets '../app/Resources/public/css/app.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endif %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+{% block body %}
+    {% block container %}
+        <div class="container" id="container" {% block stylecontainer %}{% endblock stylecontainer %}>
+
+            {% block navbar %}
+                {% include '::navbar.html.twig' %}
+            {% endblock navbar %}
+
+            {% block flashMessage %}
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="row full-width">
+                        <div class="large-12 columns text-center alert-box success">
+                            <h4>{{ flashMessage|trans }}</h4>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('errors') %}
+                    <div class="row full-width">
+                        <div class="large-12 columns text-center alert-box error">
+                            <h4>{{ flashMessage|trans }}</h4>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endblock flashMessage %}
+
+            {% block page %}
+            {% endblock page %}
+        </div>
+    {% endblock container %}
+
+    {% block footer %}
+        {% include '::footer.html.twig' %}
+    {% endblock footer %}
+
+    {% block javascripts %}
+        {% if app.environment == 'prod' %}
+        {% javascripts '../app/Resources/public/js/min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% else %}
+        {% javascripts
+        '../app/Resources/public/js/vendor/jquery.min.js'
+        '../app/Resources/public/js/vendor/modernizr.js'
+        '../app/Resources/public/js/app.js'
+        '../app/Resources/public/js/vendor/foundation.min.js'
+        '../app/Resources/public/js/vendor/foundation.topbar.js'
+        '../app/Resources/public/js/vendor/owl.carousel.min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% endif %}
+        <script>
+            $(document).foundation();
+        </script>
+    {% endblock %}
+
+{% endblock body %}
+</body>
 </html>

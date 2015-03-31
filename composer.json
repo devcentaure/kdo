@@ -4,7 +4,10 @@
     "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+        "psr-0": {
+            "": "src/",
+            "SymfonyStandard": "app/"
+        }
     },
     "require": {
         "php": ">=5.3.3",
@@ -18,7 +21,17 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+
+        "jms/i18n-routing-bundle": "1.1.1",
+        "white-october/pagerfanta-bundle": "1.0.*@dev",
+        "friendsofsymfony/user-bundle": "2.0.*@dev",
+        "hwi/oauth-bundle": "0.4.*@dev",
+        "gedmo/doctrine-extensions": "2.3.*@dev",
+        "apy/datagrid-bundle": "dev-master",
+        "stof/doctrine-extensions-bundle": "1.2.*@dev",
+        "zimzim62000/user-bundle": "dev-master",
+        "zimzim62000/tools-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -59,5 +72,17 @@
         "branch-alias": {
             "dev-master": "2.6-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/zimzim62000/UserBundle.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/zimzim62000/ToolsBundle.git"
+        }
+    ]
+
+
 }

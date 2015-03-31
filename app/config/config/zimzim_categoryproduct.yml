@@ -1,0 +1,12 @@
+zimzim_category_product:
+    max_element           : 1
+    category_class        : AppBundle\Entity\Category
+    category_repo         : AppBundle\Entity\CategoryRepository
+    categoryproduct_class : AppBundle\Entity\CategoryProduct
+    product_class         : AppBundle\Entity\Product
+    product_repo          : AppBundle\Entity\ProductRepository
+    product_form          : appbundle_producttype
+    itemhome_class        : AppBundle\Entity\ItemHome
+    itemhome_data:
+        category_class    : AppBundle\Entity\ItemHomeCategory
+        product_class     : AppBundle\Entity\ItemHomeProduct
