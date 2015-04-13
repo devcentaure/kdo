@@ -1,0 +1,6 @@
+services:
+    app_configuration_listkdo:
+        class: AppBundle\Doctrine\Configuration\ConfigurationListKdo
+        arguments:
+            - @app_entity_listkdo
+            - %formtypelistkdo%

@@ -1,0 +1,9 @@
+parameters:
+    formtypelistkdo: appbundle_listkdo_formtype
+
+services:
+    app_form_listkdo:
+        class: AppBundle\Form\Type\ListKdoType
+        arguments: [ @app_manager_listkdo, @security.context ]
+        tags:
+            - { name: form.type, alias: %formtypelistkdo% }

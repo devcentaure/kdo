@@ -1,0 +1,6 @@
+services:
+    app_manager_listkdo:
+        class: AppBundle\Doctrine\ListKdoManager
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @app_configuration_listkdo

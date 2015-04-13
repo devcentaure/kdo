@@ -1,0 +1,33 @@
+
+    /**
+{% block phpdoc_method_header %}
+     * Lists all {{ entity }} entities.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/", name="{{ route_name_prefix }}")
+     * @Method("GET")
+     * @Template()
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function indexAction()
+{% endblock method_definition %}
+    {
+{% block method_body %}
+    $data = array(
+        'entity'     => '{{ bundle }}:{{ entity|replace({'\\': '/'}) }}',
+        'show'       => '{{ route_name_prefix }}_show',
+        'edit'       => '{{ route_name_prefix }}_edit'
+    );
+
+    $this->gridList($data);
+
+{% endblock method_body %}
+
+{% block method_return %}
+   return $this->grid->getGridResponse('{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:index.html.twig');
+{% endblock method_return %}
+    }

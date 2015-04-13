@@ -1,3 +1,6 @@
+zimzim_user:
+    user_class: AppBundle\Entity\User
+
 fos_user:
     db_driver: %zimzim_user.db_driver%
     firewall_name: %zimzim_user.firewall_name%

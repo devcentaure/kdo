@@ -1,0 +1,212 @@
+{% extends 'APYDataGridBundle::blocks.html.twig' %}
+
+
+{% block grid_column_actions_cell %}
+    {% set actions = column.getActionsToRender(row) %}
+    <ul class="inline-list grid-row-actions no-bullet">
+        {% for action in actions %}
+            <li>
+                <a href="{{ url(action.route, column.routeParameters(row, action), false) }}"
+                   target="{{ action.target }}"{% if action.confirm %}
+                   onclick="return confirm('{{ action.confirmMessage|trans }}')"{% endif %}
+                {% set icon = false %}
+                {% for name, value in action.attributes %}
+                {{ name }}="{{ value }}"
+                {% if name == 'icon' %}
+                    {% set icon = value %}
+                {% endif %}
+                {% endfor %}>
+                {% if icon %}
+                    <span title="{{ action.title|trans }}" class="{{ icon }} icon-medium"></span>
+                {% else %}
+                    {{ action.title|trans }}
+                {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock grid_column_actions_cell %}
+
+
+{# ------------------------------------------------------ grid ------------------------------------------------------ #}
+{% block grid %}
+    <div class="row full-width">
+        {% if grid.totalCount > 0 or grid.isFiltered or grid.noDataMessage is sameas(false) %}
+            <form id="{{ grid.hash }}" action="{{ grid.routeUrl }}" method="post">
+                <div class="small-12 columns">
+                    {% if grid.massActions|length > 0 %}
+                        {{ grid_actions(grid) }}
+                    {% endif %}
+                </div>
+                <div class="small-12 columns">
+                    <table class="width-100 text-center">
+                        {% if grid.isTitleSectionVisible %}
+                            {{ grid_titles(grid) }}
+                        {% endif %}
+                        {% if grid.isFilterSectionVisible %}
+                            {{ grid_filters(grid) }}
+                        {% endif %}
+                        {{ grid_rows(grid) }}
+                    </table>
+                </div>
+                <div class="small-12 columns">
+                    {% if grid.isPagerSectionVisible %}
+                        {{ grid_pager(grid) }}
+                    {% endif %}
+                    {% if grid.exports|length > 0 %}
+                        {{ grid_exports(grid) }}
+                    {% endif %}
+                    {% if grid.tweaks|length > 0 %}
+                        {{ grid_tweaks(grid) }}
+                    {% endif %}
+                </div>
+                {% if withjs %}
+                    {{ grid_scripts(grid) }}
+                {% endif %}
+            </form>
+        {% else %}
+            {{ grid_no_data(grid) }}
+        {% endif %}
+    </div>
+{% endblock grid %}
+
+
+
+{% block grid_column_filter_type_input %}
+    {% set btwOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTW') %}
+    {% set btweOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTWE') %}
+    {% set isNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNULL') %}
+    {% set isNotNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNOTNULL') %}
+    {% set op = column.data.operator is defined ? column.data.operator : column.defaultOperator %}
+    {% set from = column.data.from is defined ? column.data.from : null %}
+    {% set to = column.data.to is defined ? column.data.to : null %}
+    <span class="grid-filter-input">
+    {{ grid_column_operator(column, grid, op, submitOnChange) }}
+        <span class="grid-filter-input-query">
+        <input type="{{ column.inputType }}" value="{{ from }}"  placeholder="Tous"
+               class="grid-filter-input-query-from {% if column.inputType == 'datetime' %}datepicker{% endif %}"
+               name="{{ grid.hash }}[{{ column.id }}][from]" id="{{ grid.hash }}__{{ column.id }}__query__from"
+               {% if submitOnChange is sameas(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }} />
+        <input type="{{ column.inputType }}" value="{{ to }}" class="grid-filter-input-query-to"  placeholder="Tous"
+               name="{{ grid.hash }}[{{ column.id }}][to]" id="{{ grid.hash }}__{{ column.id }}__query__to"
+               {% if submitOnChange is sameas(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }} />
+    </span>
+</span>
+{% endblock grid_column_filter_type_input %}
+
+
+
+{# --------------------------------------------------- grid_actions ------------------------------------------------- #}
+{% block grid_actions %}
+    <div class="row">
+        {% spaceless %}
+            <div class="small-6 columns text-center hide">
+                {{ 'Action'|trans }}
+                <input type="hidden" id="{{ grid.hash }}_mass_action_all"
+                       name="{{ grid.hash }}[{{ constant('APY\\DataGridBundle\\Grid\\Grid::REQUEST_QUERY_MASS_ACTION_ALL_KEYS_SELECTED') }}]"
+                       value="0"/>
+                <select name="{{ grid.hash }}[{{ constant('APY\\DataGridBundle\\Grid\\Grid::REQUEST_QUERY_MASS_ACTION') }}]">
+                    {#<option value="-1"></option>#}
+                    {% for key, massAction in grid.massActions %}
+                        <option value="{{ key }}">{{ massAction.title|trans }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="small-12 columns text-left">
+                <input type="submit"  class="tiny button" value="{{ 'button.deletemass'|trans }}"/>
+            </div>
+        {% endspaceless %}
+    </div>
+{% endblock grid_actions %}
+{# --------------------------------------------------- grid_exports ------------------------------------------------- #}
+
+
+
+
+{# -------------------------------------------- grid_column_filter_type_select --------------------------------------- #}
+{% block grid_column_filter_type_select %}
+    {% set btwOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTW') %}
+    {% set btweOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTWE') %}
+    {% set isNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNULL') %}
+    {% set isNotNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNOTNULL') %}
+    {% set op = column.data.operator is defined ? column.data.operator : column.defaultOperator %}
+    {% set from = column.data.from is defined ? column.data.from : null %}
+    {% set to = column.data.to is defined ? column.data.to : null %}
+    {% set multiple = column.selectMulti %}
+    {% set expanded = column.selectExpanded %}
+    <span class="grid-filter-select">
+    {{ grid_column_operator(column, grid, op, submitOnChange) }}
+        <span class="grid-filter-select-query">
+    {% if expanded %}
+        <span class="grid-filter-select-query-from" id="{{ grid.hash }}__{{ column.id }}__query__from" {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
+        {% for key, value in column.values %}
+            <span><input type="{% if multiple %}checkbox{% else %}radio{% endif %}" name="{{ grid.hash }}[{{ column.id }}][from][]" value="{{ key }}" {% if key in from %} checked="checked"{% endif %} {% if submitOnChange is sameas(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%}/><label>{{ value }}</label></span>
+        {% endfor %}
+        </span>
+        <span class="grid-filter-select-query-to" id="{{ grid.hash }}__{{ column.id }}__query__to" {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
+        {% for key, value in column.values %}
+            <span><input type="{% if multiple %}checkbox{% else %}radio{% endif %}" name="{{ grid.hash }}[{{ column.id }}][to]" value="{{ key }}" {% if not to is null and to == key %} checked="checked"{% endif %} {% if submitOnChange is sameas(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%}/><label>{{ value }}</label></span>
+        {% endfor %}
+        </span>
+        {% if multiple %}<input type="submit" value="{{ 'Go'|trans }}" />{% endif %}
+    {% else %}
+        <select{% if multiple %} multiple="multiple"{% endif %} name="{{ grid.hash }}[{{ column.id }}][from][]" class="grid-filter-select-query-from" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
+
+                    <option value="">Tous</option>
+                    {% for key, value in column.values %}
+                        <option value="{{ key }}"{% if key in from %} selected="selected"{% endif %}>{{ value }}</option>
+                    {% endfor %}
+        </select>
+
+
+
+        <select name="{{ grid.hash }}[{{ column.id }}][to]" class="grid-filter-select-query-to" id="{{ grid.hash }}__{{ column.id }}__query__to" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
+            <option value="">Tous</option>
+            {% for key, value in column.values %}
+                <option value="{{ key }}"{% if not to is null and to == key %} selected="selected"{% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+        {% if multiple %}<input type="submit" value="{{ 'Go'|trans }}" />{% endif %}
+    {% endif %}
+    </span>
+</span>
+{% endblock grid_column_filter_type_select %}
+
+
+{# --------------------------------------------------- grid_titles -------------------------------------------------- #}
+{% block grid_titles %}
+    <tr class="grid-row-titles">
+        {% for column in grid.columns %}
+            {% if column.visible(grid.isReadyForExport) %}
+                <th class="{% if column.align != 'left'%}align-{{ column.align }}{% endif %}{% if column.class %} {{ column.class }}{% endif %}{% if loop.last %} last-column{% endif %}"{% if(column.size > -1) %} style="width:{{ column.size }}px;"{% endif %}>
+                    {%- spaceless %}
+                        {% if column.type == 'massaction' %}
+                            <input type="checkbox" class="grid-mass-selector" onclick="{{ grid.hash }}_markVisible(this.checked);"/>
+                        {% else %}
+                            {% if column.usePrefixTitle == true %}
+                                {% set columnTitle = grid.prefixTitle ~ column.title ~ '__abbr' %}
+                                {% if columnTitle|trans == columnTitle %}
+                                    {% set columnTitle = grid.prefixTitle ~ column.title %}
+                                {% endif %}
+                            {% else %}
+                                {% set columnTitle = column.title %}
+                            {% endif %}
+                            {% if (column.sortable) %}
+                                <a class="order"  href="{{ grid_url('order', grid, column) }}" title="{{ 'Order by'|trans }} {{ columnTitle|trans }}">{{ columnTitle|trans }}
+                                {% if column.order == 'asc' %}
+                                    &nbsp; &nbsp; <span class="icon-arrow-down icon-small"></span>
+                                {% elseif column.order == 'desc' %}
+                                    &nbsp; &nbsp; <span class="icon-arrow-up icon-small"></span>
+                                {% endif %}
+                                </a>
+                            {% else %}
+                                {{ columnTitle|trans }}
+                            {% endif %}
+                        {% endif %}
+                    {% endspaceless -%}
+                </th>
+            {% endif %}
+        {% endfor %}
+    </tr>
+{% endblock grid_titles %}
+

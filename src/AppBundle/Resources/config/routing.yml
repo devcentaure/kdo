@@ -1,3 +1,7 @@
+app_appbundle_listkdo:
+    resource: "@AppBundle/Resources/config/routing/listkdo.yml"
+    prefix:   /listkdo/
+
 app_homepage:
     path:     /
     defaults: { _controller: AppBundle:Home:index }

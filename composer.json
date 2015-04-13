@@ -23,6 +23,7 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
 
+        "jasny/twig-extensions": "dev-master",
         "jms/i18n-routing-bundle": "1.1.1",
         "white-october/pagerfanta-bundle": "1.0.*@dev",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
@@ -30,7 +31,7 @@
         "gedmo/doctrine-extensions": "2.3.*@dev",
         "apy/datagrid-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "1.2.*@dev",
-        "zimzim62000/user-bundle": "dev-master",
+        "zimzim62000/user-bundle": "2.*@dev",
         "zimzim62000/tools-bundle": "dev-master"
     },
     "require-dev": {

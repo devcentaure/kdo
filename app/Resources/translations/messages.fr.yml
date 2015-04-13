@@ -1,5 +1,18 @@
 views:
+    title: "Kdo & Co"
     navbar:
-        title: "Kdo & Co?"
+        title: "Kdo & Co"
         menu: "Menu"
-        connexion: "Connexion"
+        login: "Connexion"
+        logout: "Déconnexion"
+button:
+    show: Voir
+    edit: Éditer
+    update: Modifier
+    create: Créer
+    delete: Supprimer
+    validate: Valider
+link:
+    return: "Retour à la liste"
+form:
+    fieldrequired: "Champs requis"

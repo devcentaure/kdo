@@ -1,3 +1,41 @@
 @import "normalize";
 @import "_settings";
 @import "_foundation_mod";
+@import "_iconmoon";
+
+
+nav.top-bar li.name a{
+    line-height: $topbar-height;
+    color: $white;
+    font-size: $topbar-title-font-size;
+    padding-left: $topbar-title-font-size;
+}
+
+.vertical{
+    vertical-align: middle !important;
+}
+
+.width-100{
+    width: 100%;
+}
+
+.full-width{
+    max-width: 100%;
+}
+
+i.star:before{
+    content: "*";
+    color: $alert-color;
+}
+
+.nomargin {
+    margin: 0 !important;
+}
+
+.nopadding {
+    padding: 0 !important;
+}
+
+table tr td, table tr th{
+    padding: 0 0 0 0 !important;
+}

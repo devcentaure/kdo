@@ -1,0 +1,7 @@
+entity:
+    listkdo:
+        name: "Nom"
+        slug: "Lien"
+        password: "Mot de passe"
+        user: "Utilisateur"
+        createdat: "Date de création"

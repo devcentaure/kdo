@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ 'appbundle_listkdo.index.title'|trans }}
+{% endblock title %}
+
+
+{% block page %}
+    <div class="row">
+        <div class="medium-12 columns">
+            <h1 class="text-center title">ListKdo creation</h1>
+        </div>
+    </div>
+
+
+    {{ form(form) }}
+
+    <div class="row">
+        <div class="small-4 columns text-left">
+            <a class="link-return" href="{{ path('appbundle_listkdo') }}">
+                <i class="icon-arrow-left icon-large vertical"></i>
+                {{ 'link.return'|trans }}
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

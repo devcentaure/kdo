@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <title>{% block title %}Welcome!{% endblock title %}</title>
+    <title>{% block title %}{{ 'views.title'|trans }}{% endblock title %}</title>
     <meta name="description" content="{% block metadescription %}{% endblock metadescription %}" />
     {% if app.environment == 'prod' %}
         {% stylesheets '../app/Resources/public/css/min.css' filter='cssrewrite' %}
