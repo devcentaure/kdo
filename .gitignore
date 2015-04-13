@@ -16,3 +16,10 @@
 /node_modules
 /bower_components
 zz
+/.sass-cache
+
+/app/Resources/public/css/*
+/app/Resources/public/js/*
+
+/web/js
+/web/css
