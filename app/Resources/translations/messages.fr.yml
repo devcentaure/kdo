@@ -1,7 +1,5 @@
 views:
     navbar:
-        title: "Hello what's up ?"
+        title: "Kdo & Co?"
         menu: "Menu"
-        link1: "Link 1"
-        link2: "Link 2"
-        link3: "Link 3"
+        connexion: "Connexion"
