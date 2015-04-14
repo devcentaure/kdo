@@ -277,4 +277,40 @@ class ListKdoController extends MainController
             )
             ->getForm();
     }
+
+
+    public function listAction(){
+
+        $manager = $this->container->get('app_manager_listkdo');
+
+        $entities = $manager->getRepository()->getListByDate(new \DateTime('now'));
+
+        return $this->render(
+            'AppBundle:ListKdo:list.html.twig',
+            array(
+                'entities' => $entities
+            )
+        );
+
+    }
+
+    public function slugAction($slug){
+
+        $manager = $this->container->get('app_manager_listkdo');
+
+        $entity = $manager->getBySlug($slug);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ListKdo entity.');
+        }
+
+        return $this->render(
+            'AppBundle:ListKdo:slug.html.twig',
+            array(
+                'entity' => $entity
+            )
+        );
+
+    }
+
 }

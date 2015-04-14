@@ -1,0 +1,16 @@
+<li class="nopadding" >
+
+    <h2 class="text-center listkdo-title">
+        {{ entity.name }}
+        <a href="{{ path('appbundle_listkdo_slug', {'slug': entity.slug}) }}">
+            <span class="icon-eye icon-xx-large vertical"></span>
+        </a>
+    </h2>
+
+    {% if entity.description != null %}
+        <p class="nomargin">{{ entity.description }}</p>
+    {% endif %}
+
+    <p class="text-right nomargin">{{ entity.user.username }}  -  {{ entity.date|localdate }}</p>
+
+</li>

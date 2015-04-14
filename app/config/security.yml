@@ -3,8 +3,8 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER: ROLE_USER
+        ROLE_ADMIN: [ ROLE_USER, ROLE_ADMIN ]
 
     providers:
         fos_userbundle:
@@ -26,8 +26,8 @@ security:
                     google: "/user/login/check-google"
                     facebook: "/user/login/check-facebook"
 #                    twitter: "/user/login/check-twitter"
-                login_path: /user/login/
-                failure_path: /user/login/
+                login_path: /login
+                failure_path: /login
 
                 oauth_user_provider:
                     service: zimzim_user_provider
@@ -51,4 +51,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/listkdo/, role: ROLE_USER }
+        - { path: ^/listkdo/, role: ROLE_ADMIN }
+        - { path: ^/kdo/listnew/$, role: ROLE_USER }
+        - { path: ^/kdo/, role: ROLE_USER }

@@ -40,10 +40,24 @@ class ListKdo
      */
     private $name;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     *
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     */
+    private $description;
+
     /**
      * @var string
      *
      * @Assert\NotBlank
+     * @Assert\Regex(
+     *     pattern="/^[a-z\-]+$/",
+     *     message="entity.listkdo.slug"
+     * )
      *
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      *
@@ -63,6 +77,17 @@ class ListKdo
      * source=true, field="user.username", title="entity.listkdo.user")
      */
     private $user;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
+     *
+     * @GRID\Column(operatorsVisible=false, visible=true, filterable=false, title="entity.listkdo.date")
+     */
+    private $date;
+
 
     /**
      * @var \DateTime
@@ -206,4 +231,42 @@ class ListKdo
     {
         return $this->slug;
     }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+
 }

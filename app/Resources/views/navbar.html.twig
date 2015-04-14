@@ -17,6 +17,23 @@
         </ul>
         <section class="top-bar-section">
             <ul class="right">
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="divider"></li>
+                    <li>
+                        <a href="{{ path('appbundle_listkdo') }}">
+                            {{ 'views.navbar.adminlistkdo'|trans }}
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="divider"></li>
+                <li>
+                    <a href="{{ path('appbundle_listkdo_list') }}">
+                        {{ 'views.navbar.listkdo'|trans }}
+                    </a>
+                </li>
+
                 {% if is_granted('ROLE_USER') %}
                 {% endif %}
                 <li class="divider"></li>
