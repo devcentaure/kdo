@@ -6,6 +6,8 @@ use Symfony\Component\EventDispatcher\Event;
 
 class ListKdoEvent extends Event
 {
+    private $response;
+
     private $listKdo;
 
     /**

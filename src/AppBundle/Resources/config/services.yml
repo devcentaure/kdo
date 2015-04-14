@@ -3,3 +3,5 @@ imports:
     - { resource: service/config.yml }
     - { resource: service/form.yml }
     - { resource: service/entity.yml }
+    - { resource: service/event.yml }
+    - { resource: service/listener.yml }

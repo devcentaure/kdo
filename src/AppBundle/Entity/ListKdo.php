@@ -8,6 +8,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridFilePathInterface;
+use ZIMZIM\ToolsBundle\Model\FileUpload;
 
 
 /**
@@ -17,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ListKdoRepository")
  * @UniqueEntity("slug")
  */
-class ListKdo
+class ListKdo extends FileUpload implements ApyDataGridFilePathInterface
 {
     /**
      * @var integer
@@ -111,6 +113,25 @@ class ListKdo
      */
     private $password;
 
+    /******************************* FILE ***********************************/
+
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'resources/listkdo';
+    }
+
+
+    public function getListAttrImg()
+    {
+        return array('icon', 'picture');
+    }
+    /******************************* END FILE ***********************************/
 
     /**
      * Get id

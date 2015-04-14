@@ -4,10 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppEvent;
 use Symfony\Component\HttpFoundation\Request;
-use Centaure\Controller\CentaureController;
-
 use AppBundle\Entity\ListKdo;
-use AppBundle\Form\ListKdoType;
 use ZIMZIM\ToolsBundle\Controller\MainController;
 
 /**
@@ -32,10 +29,7 @@ class ListKdoController extends MainController
             'edit' => 'appbundle_listkdo_edit'
         );
 
-        $this->gridList($data);
-
-
-        return $this->grid->getGridResponse('AppBundle:ListKdo:index.html.twig');
+        return $this->gridList($data);
     }
 
     /**
@@ -57,12 +51,8 @@ class ListKdoController extends MainController
             $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoAdd, $event);
             $this->createSuccess();
 
-            $this->createSuccess();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
 
-            return $this->redirect($this->generateUrl('appbundle_listkdo_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('appbundle_listkdo_show', array('id' => $event->getListKdo()->getId())));
         }
 
         return $this->render(
@@ -205,7 +195,6 @@ class ListKdoController extends MainController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
 
         $manager = $this->container->get('app_manager_listkdo');
 
@@ -220,8 +209,11 @@ class ListKdoController extends MainController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $event = $this->container->get('app.event.listkdo');
+            $event->setListKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoUpdate, $event);
             $this->updateSuccess();
-            $em->flush();
 
             return $this->redirect($this->generateUrl('appbundle_listkdo_edit', array('id' => $id)));
         }
@@ -246,7 +238,6 @@ class ListKdoController extends MainController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
             $manager = $this->container->get('app_manager_listkdo');
 
@@ -256,8 +247,9 @@ class ListKdoController extends MainController
                 throw $this->createNotFoundException('Unable to find ListKdo entity.');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            $event = $this->container->get('app.event.listkdo');
+            $event->setListKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoDelete, $event);
             $this->deleteSuccess();
         }
 
