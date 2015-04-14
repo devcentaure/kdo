@@ -2482,7 +2482,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zimzim62000/UserBundle.git",
-                "reference": "173383cffef32d9c1dc4f7ba6a17d2501b97f087"
+                "reference": "405f9675a44b1e7e1e0f46da86fd72557169b97b"
             },
             "require": {
                 "friendsofsymfony/user-bundle": "2.0.*@dev",
@@ -2518,7 +2518,7 @@
                 "user",
                 "zimzim62000"
             ],
-            "time": "2015-04-13 10:31:12"
+            "time": "2015-04-14 10:25:47"
         }
     ],
     "packages-dev": [
