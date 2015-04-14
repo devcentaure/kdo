@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridFilePathInterface;
-use ZIMZIM\ToolsBundle\Model\FileUpload;
 
 
 /**
@@ -18,8 +17,9 @@ use ZIMZIM\ToolsBundle\Model\FileUpload;
  * @ORM\Table(name="kdoandco_list_kdo")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ListKdoRepository")
  * @UniqueEntity("slug")
+ * @ORM\HasLifecycleCallbacks
  */
-class ListKdo extends FileUpload implements ApyDataGridFilePathInterface
+class ListKdo implements ApyDataGridFilePathInterface
 {
     /**
      * @var integer
@@ -115,10 +115,54 @@ class ListKdo extends FileUpload implements ApyDataGridFilePathInterface
 
     /******************************* FILE ***********************************/
 
+    /**
+     * @Assert\File(maxSize="100000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     */
+    public $fileIcon;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, name="icon")
+     *
+     * @GRID\Column(operatorsVisible=false, safe=false, filterable=false, sortable=false, title="entity.listkdo.icon")
+     */
+    protected $icon;
+
+    public function getAbsoluteIcon()
+    {
+        return null === $this->icon ? null : $this->getUploadRootDir() . '/' . $this->icon;
+    }
+
+    public function getWebIcon()
+    {
+        return null === $this->icon ? null : $this->getUploadDir().'/'.$this->icon;
+    }
+
+    /**
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     */
+    public $filePicture;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, name="picture")
+     *
+     * @GRID\Column(operatorsVisible=false, filterable=false, sortable=false, safe=false, title="entity.listkdo.picture")
+     */
+    protected $picture;
+
+    public function getAbsolutePicture()
+    {
+        return null === $this->icon ? null : $this->getUploadRootDir() . '/' . $this->picture;
+    }
+
+    public function getWebPicture()
+    {
+        return null === $this->icon ? null : $this->getUploadDir().'/'.$this->picture;
+    }
+
 
     protected function getUploadRootDir()
     {
-        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -131,6 +175,83 @@ class ListKdo extends FileUpload implements ApyDataGridFilePathInterface
     {
         return array('icon', 'picture');
     }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (isset($this->fileIcon)) {
+            if (null !== $this->fileIcon) {
+                $oldFile = $this->getAbsoluteIcon();
+                if ($oldFile && isset($this->fileIcon)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $this->icon = sha1(uniqid(mt_rand(), true)) . '.' . $this->fileIcon->guessExtension();
+                usleep(1);
+            }
+        }
+
+        if (isset($this->filePicture)) {
+            if (null !== $this->filePicture) {
+                $oldFile = $this->getAbsolutePicture();
+                if ($oldFile && isset($this->filePicture)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $this->picture = sha1(uniqid(mt_rand(), true)) . '.' . $this->filePicture->guessExtension();
+            }
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (isset($this->fileIcon)) {
+            if (null === $this->fileIcon) {
+                return;
+            }
+            $this->fileIcon->move($this->getUploadRootDir(), $this->icon);
+            unset($this->fileIcon);
+        }
+
+        if (isset($this->filePicture)) {
+            if (null === $this->filePicture) {
+                return;
+            }
+            $this->filePicture->move($this->getUploadRootDir(), $this->picture);
+            unset($this->filePicture);
+        }
+
+    }
+
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsoluteIcon()) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
+        if ($file = $this->getAbsolutePicture()) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
+    }
+
     /******************************* END FILE ***********************************/
 
     /**
@@ -287,6 +408,22 @@ class ListKdo extends FileUpload implements ApyDataGridFilePathInterface
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIcon()
+    {
+        return $this->icon;
     }
 
 

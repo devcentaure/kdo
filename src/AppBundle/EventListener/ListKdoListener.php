@@ -40,6 +40,7 @@ class ListKdoListener implements EventSubscriberInterface
 
     public function listKdoUpdate(ListKdoEvent $listKdoEvent)
     {
+        $listKdoEvent->getListKdo()->preUpload();
         $this->em->persist($listKdoEvent->getListKdo());
         $this->em->flush();
     }
