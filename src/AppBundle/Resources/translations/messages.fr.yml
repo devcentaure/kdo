@@ -5,3 +5,12 @@ entity:
         password: "Mot de passe"
         user: "Utilisateur"
         createdat: "Date de création"
+        date: "Date de l'évenement"
+        description: "Description"
+app:
+    listkdo:
+        title: "Liste des listes Kdo"
+        list:
+            title: "Liste Kdo Dispo"
+        slug:
+            title: "Detail de la liste %name%"

@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+
+    {{ 'app.listkdo.list.title'|trans }}
+
+{% endblock title %}
+
+{% block page %}
+    <div class="row">
+        <div class="small-10 columns">
+            <h1 class="text-center title">
+                {{ 'app.listkdo.list.title'|trans }}
+            </h1>
+
+            <ul class="small-block-grid-1">
+                {% for entity in entities %}
+                    {% include 'AppBundle:ListKdo:include/listkdo.html.twig' with{'entity': entity} %}
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
+{% endblock %}

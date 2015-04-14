@@ -1,0 +1,30 @@
+appbundle_listkdo:
+    path:     /
+    defaults: { _controller: "AppBundle:ListKdo:index" }
+
+appbundle_listkdo_show:
+    path:     /{id}/show/
+    defaults: { _controller: "AppBundle:ListKdo:show" }
+
+appbundle_listkdo_new:
+    path:     /new/
+    defaults: { _controller: "AppBundle:ListKdo:new" }
+
+appbundle_listkdo_create:
+    path:     /create/
+    defaults: { _controller: "AppBundle:ListKdo:create" }
+    methods:  POST
+
+appbundle_listkdo_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "AppBundle:ListKdo:edit" }
+
+appbundle_listkdo_update:
+    path:     /{id}/update/
+    defaults: { _controller: "AppBundle:ListKdo:update" }
+    methods:  [POST, PUT]
+
+appbundle_listkdo_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "AppBundle:ListKdo:delete" }
+    methods:  [POST, DELETE]

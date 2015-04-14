@@ -30,10 +30,24 @@ class ListKdoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $security = $this->security;
-
+        $now = new \DateTime('now');
         $builder
             ->add('name', null, array('label' => 'entity.listkdo.name'))
+            ->add('description', null, array('label' => 'entity.listkdo.description'))
             ->add('slug', null, array('label' => 'entity.listkdo.slug'))
+            ->add(
+                'date',
+                'date',
+                array(
+                    'label' => 'entity.listkdo.date',
+                    'attr' => array(
+                        'label-inline' => 'label-inline',
+                        'placeholder' => $now->format('Y-m-d')
+                    ),
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
+                )
+            )
             ->add('password', 'text', array('label' => 'entity.listkdo.password'))
             ->add('user', null, array('label' => 'entity.listkdo.user'));
 
@@ -43,7 +57,7 @@ class ListKdoType extends AbstractType
                 $listkdo = $event->getData();
                 $form = $event->getForm();
 
-                if ($security->isGranted('ROLE_ADMIN') === false){
+                if ($security->isGranted('ROLE_ADMIN') === false) {
                     $form->remove('user');
                     $listkdo->setUser($security->getToken()->getUser());
                 }

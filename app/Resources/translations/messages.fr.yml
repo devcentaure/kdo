@@ -5,6 +5,8 @@ views:
         menu: "Menu"
         login: "Connexion"
         logout: "Déconnexion"
+        listkdo: "ListKdo"
+        adminlistkdo: "Admin ListKdo"
 button:
     show: Voir
     edit: Éditer
@@ -12,6 +14,7 @@ button:
     create: Créer
     delete: Supprimer
     validate: Valider
+    register: "S'inscrire"
 link:
     return: "Retour à la liste"
 form:

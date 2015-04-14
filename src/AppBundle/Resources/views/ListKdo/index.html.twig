@@ -1,13 +1,16 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-    {{ 'appbundle_listkdo.index.title'|trans }}
+    {{ 'app.listkdo.title'|trans }}
 {% endblock title %}
 
 {% block page %}
+
     <div class="row">
         <div class="small-10 columns">
-            <h1 class="text-center title">ListKdo list</h1>
+            <h1 class="text-center title">
+                {{ 'app.listkdo.title'|trans }}
+            </h1>
         </div>
         <div class="small-2 columns">
             <a class="tiny button" href="{{ path('appbundle_listkdo_new') }}">

@@ -1,6 +1,10 @@
+app_appbundle_admin_listkdo:
+    resource: "@AppBundle/Resources/config/routing/admin_listkdo.yml"
+    prefix:   /listkdo/
+
 app_appbundle_listkdo:
     resource: "@AppBundle/Resources/config/routing/listkdo.yml"
-    prefix:   /listkdo/
+    prefix:   /kdo/
 
 app_homepage:
     path:     /
