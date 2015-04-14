@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Centaure\Controller\CentaureController;
 
@@ -50,6 +51,11 @@ class ListKdoController extends MainController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+            $event = $this->container->get('app.event.listkdo');
+            $event->setListKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoAdd, $event);
+            $this->createSuccess();
 
             $this->createSuccess();
             $em = $this->getDoctrine()->getManager();
