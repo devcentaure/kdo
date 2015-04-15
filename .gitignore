@@ -20,6 +20,7 @@ zz
 
 /app/Resources/public/css/*
 /app/Resources/public/js/*
+!/app/Resources/public/js/app.js
 
 /web/js
 /web/css
