@@ -5,3 +5,4 @@ imports:
     - { resource: service/entity.yml }
     - { resource: service/event.yml }
     - { resource: service/listener.yml }
+    - { resource: service/security.yml }

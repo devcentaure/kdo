@@ -13,7 +13,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * UserListKdo
  *
  * @ORM\Table(name="kdoandco_user_list_kdo")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserListKdoRepository")
  */
 class UserListKdo
 {
@@ -23,6 +23,7 @@ class UserListKdo
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
     private $id;
 
@@ -34,6 +35,8 @@ class UserListKdo
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ListKdo")
      * @ORM\JoinColumn(name="id_list_kdo", referencedColumnName="id")
      *
+     * @GRID\Column(operatorsVisible=false, filter="select",field="listKdo.name", source=true, title="entity.userlistkdo.listkdo")
+     *
      */
     private $listKdo;
 
@@ -44,6 +47,9 @@ class UserListKdo
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     *
+     * @GRID\Column(operatorsVisible=false, visible=true, filterable=true, filter="select",
+     * source=true, field="user.username", title="entity.userlistkdo.user")
      */
     private $user;
 
@@ -53,6 +59,8 @@ class UserListKdo
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="created_at", type="datetime")
+     *
+     * @GRID\Column(operatorsVisible=false, visible=true, filterable=false, title="entity.userlistkdo.date")
      */
     private $createdAt;
 

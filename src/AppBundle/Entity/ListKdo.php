@@ -27,7 +27,7 @@ class ListKdo implements ApyDataGridFilePathInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     * @GRID\Column(operatorsVisible=false, visible=true, filterable=true, role="ROLE_ADMIN")
      */
     private $id;
 
@@ -426,5 +426,9 @@ class ListKdo implements ApyDataGridFilePathInterface
         return $this->icon;
     }
 
+
+    public function __toString(){
+        return $this->name;
+    }
 
 }

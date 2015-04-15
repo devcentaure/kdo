@@ -7,18 +7,6 @@
 
 {% block page %}
 
-    <div class="row">
-        <div class="small-10 columns">
-
-            <h1 class="text-center title">
-                {{ 'app.listkdo.slug.title'|trans({'%name%': entity.name}) }}
-            </h1>
-
-            <ul class="small-block-grid-1">
-                {% include 'AppBundle:ListKdo:include/listkdo.html.twig' with{'entity': entity} %}
-            </ul>
-
-        </div>
-    </div>
+    {% include 'AppBundle:ListKdo:include/div-listkdo.html.twig' with{'entity': entity} %}
 
 {% endblock %}

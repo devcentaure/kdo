@@ -1,0 +1,30 @@
+appbundle_userlistkdo:
+    path:     /
+    defaults: { _controller: "AppBundle:UserListKdo:index" }
+
+appbundle_userlistkdo_show:
+    path:     /{id}/show/
+    defaults: { _controller: "AppBundle:UserListKdo:show" }
+
+appbundle_userlistkdo_new:
+    path:     /new/
+    defaults: { _controller: "AppBundle:UserListKdo:new" }
+
+appbundle_userlistkdo_create:
+    path:     /create/
+    defaults: { _controller: "AppBundle:UserListKdo:create" }
+    methods:  POST
+
+appbundle_userlistkdo_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "AppBundle:UserListKdo:edit" }
+
+appbundle_userlistkdo_update:
+    path:     /{id}/update/
+    defaults: { _controller: "AppBundle:UserListKdo:update" }
+    methods:  [POST, PUT]
+
+appbundle_userlistkdo_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "AppBundle:UserListKdo:delete" }
+    methods:  [POST, DELETE]

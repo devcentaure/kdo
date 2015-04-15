@@ -12,3 +12,8 @@ appbundle_listkdo_listnew:
     path:     /listnew/
     defaults: { _controller: "AppBundle:ListKdo:listnew" }
     methods:  [GET, POST]
+
+appbundle_listkdo_getaccess:
+    path:     /{id}/getaccess/
+    defaults: { _controller: "AppBundle:ListKdo:getaccesslistkdo" }
+    methods:  [GET, POST]

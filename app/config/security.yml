@@ -52,5 +52,6 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/listkdo/, role: ROLE_ADMIN }
+        - { path: ^/userlistkdo/, role: ROLE_ADMIN }
         - { path: ^/kdo/listnew/$, role: ROLE_USER }
         - { path: ^/kdo/, role: ROLE_USER }
