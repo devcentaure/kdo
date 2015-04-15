@@ -1,3 +1,7 @@
+app_app_kdo:
+    resource: "@AppBundle/Resources/config/routing/admin_kdo.yml"
+    prefix:   /kdo/
+
 app_appbundle_userlistkdo:
     resource: "@AppBundle/Resources/config/routing/admin_userlistkdo.yml"
     prefix:   /userlistkdo/
@@ -8,7 +12,7 @@ app_appbundle_admin_listkdo:
 
 app_appbundle_listkdo:
     resource: "@AppBundle/Resources/config/routing/listkdo.yml"
-    prefix:   /kdo/
+    prefix:   /list/
 
 app_homepage:
     path:     /

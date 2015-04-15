@@ -12,16 +12,17 @@
         </div>
     </div>
 
-
-    {{ form(form) }}
-
-        <div class="row">
-    <div class="small-4 columns text-left">
-        <a class="link-return" href="{{ path('appbundle_userlistkdo') }}">
-            <i class="icon-arrow-left icon-large vertical"></i>
-            {{ 'link.return'|trans }}
-        </a>
+    <div class="panel">
+        {{ form(form) }}
     </div>
-</div>
+
+    <div class="row">
+        <div class="small-4 columns text-left">
+            <a class="link-return" href="{{ path('appbundle_userlistkdo') }}">
+                <i class="icon-arrow-left icon-large vertical"></i>
+                {{ 'link.return'|trans }}
+            </a>
+        </div>
+    </div>
 
 {% endblock %}

@@ -10,3 +10,9 @@ services:
         arguments:
             - @doctrine.orm.entity_manager
             - @app_configuration_userlistkdo
+
+    app_manager_kdo:
+        class: AppBundle\Doctrine\KdoManager
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @app_configuration_kdo

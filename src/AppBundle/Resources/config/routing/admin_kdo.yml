@@ -1,0 +1,30 @@
+app_kdo:
+    path:     /
+    defaults: { _controller: "AppBundle:Kdo:index" }
+
+app_kdo_show:
+    path:     /{id}/show/
+    defaults: { _controller: "AppBundle:Kdo:show" }
+
+app_kdo_new:
+    path:     /new/
+    defaults: { _controller: "AppBundle:Kdo:new" }
+
+app_kdo_create:
+    path:     /create/
+    defaults: { _controller: "AppBundle:Kdo:create" }
+    methods:  POST
+
+app_kdo_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "AppBundle:Kdo:edit" }
+
+app_kdo_update:
+    path:     /{id}/update/
+    defaults: { _controller: "AppBundle:Kdo:update" }
+    methods:  [POST, PUT]
+
+app_kdo_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "AppBundle:Kdo:delete" }
+    methods:  [POST, DELETE]

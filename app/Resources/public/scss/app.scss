@@ -45,7 +45,7 @@ table tr td, table tr th{
     max-height: 8rem;
 }
 .icon-listkdo-large{
-  max-height: 18rem;
+    max-height: 14rem;
 }
 
 .right{
@@ -60,4 +60,10 @@ h1.title{
 }
 h2.listkdo-title{
   font-size: 1.8rem;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.inlineblock{
+    display:inline-block;
 }

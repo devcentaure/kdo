@@ -5,23 +5,24 @@
         ">
     <div class="small-12 columns">
         <div class="row">
-            <div class="medium-4 columns">
+            <div class="small-3 columns text-center">
                 <img class="vertical icon-listkdo-large" src="/{{ entity.webicon }}">
             </div>
-            <div class="medium-8 columns">
+            <div class="small-9 columns">
                 <h2 class="text-center listkdo-title">
-                    {{ entity.name }}
+                    <span class="panel inlineblock">{{ entity.name }}</span>
                 </h2>
             </div>
         </div>
         <div class="row">
-            <div class="medium-8 medium-centered columns">
+            <div class="small-10 small-centered medium-6 medium-centered columns">
 
                 {% if entity.description != null %}
-                    <p class="nomargin panel">{{ entity.description }}</p>
+                    <p class="panel">{{ entity.description }}</p>
                 {% endif %}
 
-                <p class="text-right nomargin">{{ entity.user.username }}  -  {{ entity.date|localdate }}</p>
+                <p class="text-right"><span class="panel inlineblock">{{ entity.user.username }}
+                        -  {{ entity.date|localdate }}</span></p>
             </div>
         </div>
     </div>

@@ -13,6 +13,13 @@ entity:
         user: "Utilisateur"
         listkdo: "Liste de Kdo"
         date: "Date"
+    kdo:
+        name: "Nom"
+        description: "Description"
+        link: "Lien"
+        quantity: "Quantité"
+        price: "Prix Unitaire"
+        listkdo: "Liste"
 app:
     listkdo:
         title: "Liste des listes Kdo"

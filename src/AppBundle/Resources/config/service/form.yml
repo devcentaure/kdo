@@ -1,6 +1,7 @@
 parameters:
     formtypelistkdo: appbundle_listkdo_formtype
     formtypeuserlistkdo: appbundle_userlistkdo_formtype
+    formtypekdo: appbundle_kdo_formtype
 
 services:
     app_form_listkdo:
@@ -13,3 +14,8 @@ services:
         arguments: [ @app_manager_userlistkdo, @security.context ]
         tags:
             - { name: form.type, alias: %formtypeuserlistkdo% }
+    app_form_kdo:
+        class: AppBundle\Form\Type\KdoType
+        arguments: [ @app_manager_kdo, @security.context ]
+        tags:
+            - { name: form.type, alias: %formtypekdo% }
