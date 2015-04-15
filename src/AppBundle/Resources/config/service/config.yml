@@ -4,3 +4,9 @@ services:
         arguments:
             - @app_entity_listkdo
             - %formtypelistkdo%
+
+    app_configuration_userlistkdo:
+        class: AppBundle\Doctrine\Configuration\ConfigurationUserListKdo
+        arguments:
+            - @app_entity_userlistkdo
+            - %formtypeuserlistkdo%

@@ -39,3 +39,24 @@ i.star:before{
 table tr td, table tr th{
     padding: 0 0 0 0 !important;
 }
+
+.icon-listkdo-small{
+    max-height: 8rem;
+}
+.icon-listkdo-large{
+  max-height: 18rem;
+}
+
+.right{
+    float: right;
+}
+.left{
+  float: left;
+}
+
+h1.title{
+    font-size: 2.2rem;
+}
+h2.listkdo-title{
+  font-size: 1.8rem;
+}

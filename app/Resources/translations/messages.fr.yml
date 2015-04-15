@@ -7,6 +7,7 @@ views:
         logout: "Déconnexion"
         listkdo: "ListKdo"
         adminlistkdo: "Admin ListKdo"
+        adminuserlistkdo: "Admin UserListKdo"
 button:
     show: Voir
     edit: Éditer

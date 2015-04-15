@@ -2,11 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppEvent;
 use Symfony\Component\HttpFoundation\Request;
-use Centaure\Controller\CentaureController;
-
 use AppBundle\Entity\ListKdo;
-use AppBundle\Form\ListKdoType;
 use ZIMZIM\ToolsBundle\Controller\MainController;
 
 /**
@@ -31,10 +29,7 @@ class ListKdoController extends MainController
             'edit' => 'appbundle_listkdo_edit'
         );
 
-        $this->gridList($data);
-
-
-        return $this->grid->getGridResponse('AppBundle:ListKdo:index.html.twig');
+        return $this->gridList($data);
     }
 
     /**
@@ -51,12 +46,15 @@ class ListKdoController extends MainController
 
         if ($form->isValid()) {
 
+            $event = $this->container->get('app.event.listkdo');
+            $event->setListKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoAdd, $event);
             $this->createSuccess();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
 
-            return $this->redirect($this->generateUrl('appbundle_listkdo_show', array('id' => $entity->getId())));
+
+            return $this->redirect(
+                $this->generateUrl('appbundle_listkdo_show', array('id' => $event->getListKdo()->getId()))
+            );
         }
 
         return $this->render(
@@ -199,7 +197,6 @@ class ListKdoController extends MainController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
 
         $manager = $this->container->get('app_manager_listkdo');
 
@@ -214,8 +211,11 @@ class ListKdoController extends MainController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $event = $this->container->get('app.event.listkdo');
+            $event->setListKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoUpdate, $event);
             $this->updateSuccess();
-            $em->flush();
 
             return $this->redirect($this->generateUrl('appbundle_listkdo_edit', array('id' => $id)));
         }
@@ -240,7 +240,6 @@ class ListKdoController extends MainController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
             $manager = $this->container->get('app_manager_listkdo');
 
@@ -250,8 +249,9 @@ class ListKdoController extends MainController
                 throw $this->createNotFoundException('Unable to find ListKdo entity.');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            $event = $this->container->get('app.event.listkdo');
+            $event->setListKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoDelete, $event);
             $this->deleteSuccess();
         }
 
@@ -279,7 +279,8 @@ class ListKdoController extends MainController
     }
 
 
-    public function listAction(){
+    public function listAction()
+    {
 
         $manager = $this->container->get('app_manager_listkdo');
 
@@ -294,7 +295,10 @@ class ListKdoController extends MainController
 
     }
 
-    public function slugAction($slug){
+    public function slugAction($slug)
+    {
+
+        $security = $this->container->get('security.context');
 
         $manager = $this->container->get('app_manager_listkdo');
 
@@ -304,13 +308,101 @@ class ListKdoController extends MainController
             throw $this->createNotFoundException('Unable to find ListKdo entity.');
         }
 
+        if ($security->isGranted('LISTKDO_VIEW', $entity) === false) {
+            $this->displayError('app.listkdo.slug.noaccess');
+
+            return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+        }
+
         return $this->render(
             'AppBundle:ListKdo:slug.html.twig',
             array(
                 'entity' => $entity
             )
         );
+    }
 
+
+    public function getAccessListKdoAction(Request $request, $id)
+    {
+
+        $security = $this->container->get('security.context');
+
+        $manager = $this->container->get('app_manager_listkdo');
+
+        $entity = $manager->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ListKdo entity.');
+        }
+
+        if ($security->isGranted('LISTKDO_VIEW', $entity) === true) {
+            $this->displayError('app.listkdo.slug.alwaysaccess');
+
+            return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+        }
+
+        $form = $this->createGetAccessForm($entity->getId());
+
+        if ($request->getMethod() === 'POST') {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+
+                $datas = $form->getData();
+
+                $pass = null;
+                if (isset($datas['password'])) {
+                    $pass = $datas['password'];
+                }
+
+                if ($pass === $entity->getPassword()) {
+
+
+                    $em = $this->getDoctrine()->getManager();
+                    $userlistkdo = $this->container->get('app_entity_userlistkdo');
+                    $userlistkdo->setUser($security->getToken()->getUser());
+                    $userlistkdo->setListKdo($entity);
+                    $em->persist($userlistkdo);
+                    $em->flush();
+
+                    $this->displaySuccess('app.listkdo.getaccess.rightpass');
+
+                    return $this->redirect(
+                        $this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getSlug()))
+                    );
+                } else {
+                    $this->displayError('app.listkdo.getaccess.wrongpass');
+                }
+            }
+        }
+
+        return $this->render(
+            'AppBundle:ListKdo:getaccess.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView()
+            )
+        );
+
+    }
+
+    private function createGetAccessForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('appbundle_listkdo_getaccess', array('id' => $id)))
+            ->setMethod('POST')
+            ->add(
+                'password',
+                'password',
+                array('label' => 'entity.listkdo.password')
+            )
+            ->add(
+                'submit',
+                'submit',
+                array('label' => 'button.validate', 'attr' => array('class' => 'tiny button success'))
+            )
+            ->getForm();
     }
 
 }

@@ -1,0 +1,29 @@
+<div class="row full-width" style="
+        background-image: url('/{{ entity.webpicture }}');
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        ">
+    <div class="small-12 columns">
+        <div class="row">
+            <div class="medium-4 columns">
+                <img class="vertical icon-listkdo-large" src="/{{ entity.webicon }}">
+            </div>
+            <div class="medium-8 columns">
+                <h2 class="text-center listkdo-title">
+                    {{ entity.name }}
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-8 medium-centered columns">
+
+                {% if entity.description != null %}
+                    <p class="nomargin panel">{{ entity.description }}</p>
+                {% endif %}
+
+                <p class="text-right nomargin">{{ entity.user.username }}  -  {{ entity.date|localdate }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,12 +1,18 @@
 entity:
     listkdo:
         name: "Nom"
-        slug: "Lien"
+        slug: "Lien ( caractères acceptés : lettre minuscule et - )"
         password: "Mot de passe"
         user: "Utilisateur"
         createdat: "Date de création"
         date: "Date de l'évenement"
         description: "Description"
+        icon: "Vignette"
+        picture: "Image de fond"
+    userlistkdo:
+        user: "Utilisateur"
+        listkdo: "Liste de Kdo"
+        date: "Date"
 app:
     listkdo:
         title: "Liste des listes Kdo"
@@ -14,3 +20,11 @@ app:
             title: "Liste Kdo Dispo"
         slug:
             title: "Detail de la liste %name%"
+            needaccess: "S'inscrire à cette liste"
+            viewaccess: "Voir le détail de cette liste"
+            noaccess: "Vous n'avez pas accés à cette liste"
+            alwaysaccess: "Vous avez déjà accés à cette liste"
+        getaccess:
+            title: "Demande d'accés à la liste %name%"
+            wrongpass: "Password érroné"
+            rightpass: "Password accepté"

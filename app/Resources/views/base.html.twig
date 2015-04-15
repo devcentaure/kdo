@@ -35,7 +35,7 @@
                 {% endfor %}
                 {% for flashMessage in app.session.flashbag.get('errors') %}
                     <div class="row full-width">
-                        <div class="large-12 columns text-center alert-box error">
+                        <div class="large-12 columns text-center alert-box alert">
                             <h4>{{ flashMessage|trans }}</h4>
                         </div>
                     </div>

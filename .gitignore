@@ -23,3 +23,7 @@ zz
 
 /web/js
 /web/css
+
+
+/web/resources/listkdo/*
+!/web/resources/listkdo/.gitkeep

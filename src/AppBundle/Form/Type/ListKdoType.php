@@ -61,6 +61,41 @@ class ListKdoType extends AbstractType
                     $form->remove('user');
                     $listkdo->setUser($security->getToken()->getUser());
                 }
+
+                $tmpFileName = '';
+                $methodName = 'getWebIcon';
+                if ($listkdo->getId() !== null) {
+                    $tmpFileName = $listkdo->$methodName();
+                }
+                $form->add(
+                    'fileIcon',
+                    'zimzim_toolsbundle_zimzimimage',
+                    array(
+                        'label' => 'entity.listkdo.icon',
+                        'attr' => array(
+                            'url' => $tmpFileName,
+                            'label-inline' => 'label-inline'
+                        )
+                    )
+                );
+
+                $tmpFileName = '';
+                $methodName = 'getWebPicture';
+                if ($listkdo->getId() !== null) {
+                    $tmpFileName = $listkdo->$methodName();
+                }
+                $form->add(
+                    'filePicture',
+                    'zimzim_toolsbundle_zimzimimage',
+                    array(
+                        'label' => 'entity.listkdo.picture',
+                        'attr' => array(
+                            'url' => $tmpFileName,
+                            'label-inline' => 'label-inline'
+                        )
+                    )
+                );
+
             }
         );
 

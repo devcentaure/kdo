@@ -1,0 +1,29 @@
+<li class="nopadding panel">
+
+    <div class="row">
+
+        <div class="medium-3 columns text-center">
+            <img class="vertical icon-listkdo-small" src="/{{ entity.webicon }}">
+        </div>
+        <div class="medium-6 columns">
+
+            <h2 class="text-center listkdo-title ">
+                {{ entity.name }}
+                {% if is_granted('LISTKDO_VIEW', entity) %}
+                    <a href="{{ path('appbundle_listkdo_slug', {'slug': entity.slug}) }}"
+                        title="{{ 'app.listkdo.slug.viewaccess'|trans }}"    >
+                        <span class="icon-eye icon-xx-large vertical"></span>
+                    </a>
+                {% else %}
+                    <a href="{{ path('appbundle_listkdo_getaccess', {'id': entity.id}) }}"
+                       title="{{ 'app.listkdo.slug.needaccess'|trans }}"    >
+                        <span class="icon-coin-euro icon-xx-large vertical"></span>
+                    </a>
+                {% endif %}
+            </h2>
+        </div>
+        <div class="medium-3 columns text-center">
+            <p class="text-right nomargin">{{ entity.user.username }}  -  {{ entity.date|localdate }}</p>
+        </div>
+    </div>
+</li>

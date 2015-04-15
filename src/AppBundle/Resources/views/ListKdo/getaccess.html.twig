@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}
+    {{ 'app.listkdo.getaccess.title'|trans({'%name%': entity.name}) }}
+{% endblock title %}
+
+{% block page %}
+
+    <div class="row">
+        <div class="small-10 columns small-centered">
+            <h1 class="text-center title">
+                {{ 'app.listkdo.getaccess.title'|trans({'%name%': entity.name}) }}
+            </h1>
+            <ul class="small-block-grid-1">
+                {% include 'AppBundle:ListKdo:include/li-listkdo.html.twig' with{'entity': entity} %}
+            </ul>
+            <div class="panel">
+                {{ form(form) }}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

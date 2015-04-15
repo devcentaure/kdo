@@ -1,0 +1,6 @@
+services:
+    app.listener.listkdo:
+        class: AppBundle\EventListener\ListKdoListener
+        arguments: [ @doctrine.orm.entity_manager, @security.context ]
+        tags:
+            - { name: kernel.event_subscriber, priority: 254 }

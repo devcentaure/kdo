@@ -1,3 +1,5 @@
 services:
     app_entity_listkdo:
         class: AppBundle\Entity\ListKdo
+    app_entity_userlistkdo:
+        class: AppBundle\Entity\UserListKdo
