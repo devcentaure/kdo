@@ -10,3 +10,9 @@ services:
         arguments:
             - @app_entity_userlistkdo
             - %formtypeuserlistkdo%
+
+    app_configuration_kdo:
+        class: AppBundle\Doctrine\Configuration\ConfigurationKdo
+        arguments:
+            - @app_entity_kdo
+            - %formtypekdo%

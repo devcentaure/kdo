@@ -254,6 +254,21 @@ class ListKdo implements ApyDataGridFilePathInterface
 
     /******************************* END FILE ***********************************/
 
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Kdo", mappedBy="listkdo", cascade={"persist", "remove"})
+     */
+    private $kdos;
+
+
+    public function __construct()
+    {
+        $this->kdos = new ArrayCollection();
+    }
+
+
     /**
      * Get id
      *
@@ -429,6 +444,24 @@ class ListKdo implements ApyDataGridFilePathInterface
 
     public function __toString(){
         return $this->name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getKdos()
+    {
+        return $this->kdos;
+    }
+
+    /**
+     * @param ArrayCollection $kdos
+     */
+    public function setKdos($kdos)
+    {
+        $this->kdos = $kdos;
+
+        return $this;
     }
 
 }
