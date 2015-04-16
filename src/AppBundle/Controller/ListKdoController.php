@@ -51,9 +51,15 @@ class ListKdoController extends MainController
             $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoAdd, $event);
             $this->createSuccess();
 
+            $security = $this->container->get('security.context');
 
+            if($security->isGranted('ROLE_ADMIN') === true){
+                return $this->redirect(
+                    $this->generateUrl('appbundle_listkdo_show', array('id' => $event->getListKdo()->getId()))
+                );
+            }
             return $this->redirect(
-                $this->generateUrl('appbundle_listkdo_show', array('id' => $event->getListKdo()->getId()))
+                $this->generateUrl('appbundle_listkdo_slug', array('slug' => $event->getListKdo()->getSlug()))
             );
         }
 
@@ -151,6 +157,13 @@ class ListKdoController extends MainController
             throw $this->createNotFoundException('Unable to find ListKdo entity.');
         }
 
+        $security = $this->container->get('security.context');
+        if ($security->isGranted('LISTKDO_UPDATE', $entity) === false) {
+            $this->displayError('app.listkdo.slug.noaccess');
+
+            return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+        }
+
         $editForm = $this->createEditForm($entity, $manager);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -206,6 +219,13 @@ class ListKdoController extends MainController
             throw $this->createNotFoundException('Unable to find ListKdo entity.');
         }
 
+        $security = $this->container->get('security.context');
+        if ($security->isGranted('LISTKDO_UPDATE', $entity) === false) {
+            $this->displayError('app.listkdo.slug.noaccess');
+
+            return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+        }
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity, $manager);
         $editForm->handleRequest($request);
@@ -239,6 +259,8 @@ class ListKdoController extends MainController
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        $security = $this->container->get('security.context');
+        
         if ($form->isValid()) {
 
             $manager = $this->container->get('app_manager_listkdo');
@@ -249,13 +271,22 @@ class ListKdoController extends MainController
                 throw $this->createNotFoundException('Unable to find ListKdo entity.');
             }
 
+            if ($security->isGranted('LISTKDO_DELETE', $entity) === false) {
+                $this->displayError('app.listkdo.slug.noaccess');
+
+                return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+            }
+
             $event = $this->container->get('app.event.listkdo');
             $event->setListKdo($entity);
             $this->container->get('event_dispatcher')->dispatch(AppEvent::ListKdoDelete, $event);
             $this->deleteSuccess();
         }
 
-        return $this->redirect($this->generateUrl('appbundle_listkdo'));
+        if($security->isGranted('ROLE_ADMIN')){
+            return $this->redirect($this->generateUrl('appbundle_listkdo'));
+        }
+        return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
     }
 
     /**
@@ -352,8 +383,8 @@ class ListKdoController extends MainController
                 $datas = $form->getData();
 
                 $pass = null;
-                if (isset($datas['password'])) {
-                    $pass = $datas['password'];
+                if (isset($datas['listkdo_pass'])) {
+                    $pass = $datas['listkdo_pass'];
                 }
 
                 if ($pass === $entity->getPassword()) {
@@ -393,7 +424,7 @@ class ListKdoController extends MainController
             ->setAction($this->generateUrl('appbundle_listkdo_getaccess', array('id' => $id)))
             ->setMethod('POST')
             ->add(
-                'password',
+                'listkdo_pass',
                 'password',
                 array('label' => 'entity.listkdo.password')
             )
@@ -404,5 +435,4 @@ class ListKdoController extends MainController
             )
             ->getForm();
     }
-
 }

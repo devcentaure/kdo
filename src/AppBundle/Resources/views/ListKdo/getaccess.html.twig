@@ -15,6 +15,12 @@
             <ul class="small-block-grid-1">
                 {% include 'AppBundle:ListKdo:include/li-listkdo.html.twig' with{'entity': entity} %}
             </ul>
+            {% if entity.helppass %}
+            <p class="panel">
+                {{ 'app.listkdo.getaccess.helppass'|trans }} :
+                <strong><i>{{ entity.helppass }}</i></strong>
+            </p>
+            {% endif %}
             <div class="panel">
                 {{ form(form) }}
             </div>

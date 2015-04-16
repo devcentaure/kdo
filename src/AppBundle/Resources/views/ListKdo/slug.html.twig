@@ -7,6 +7,14 @@
 
 {% block page %}
 
+    {% if is_granted('LISTKDO_DELETE', entity) %}
+
+        <a href="{{ path('appbundle_listkdo_edit', {'id': entity.id}) }}" class="tiny button success">
+            {{ 'app.listkdo.slug.update'|trans }}
+        </a>
+
+    {% endif %}
+
     {% include 'AppBundle:ListKdo:include/div-listkdo.html.twig' with{'entity': entity} %}
 
 {% endblock %}

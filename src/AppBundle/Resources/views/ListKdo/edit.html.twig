@@ -2,13 +2,19 @@
 
 
 {% block title %}
-    {{ 'appbundle_listkdo.index.title'|trans }}
+    {{ 'app.listkdo.edit.title'|trans }}
 {% endblock title %}
 
 {% block page %}
     <div class="row">
         <div class="medium-12 columns">
-            <h1 class="text-center title">ListKdo edit</h1>
+            <h1 class="text-center title">
+                {{ 'app.listkdo.edit.title'|trans }}
+            </h1>
+            <a href="{{ path('appbundle_listkdo_slug', {'slug': entity.slug}) }}">
+                <span class="icon-arrow-left icon-large"></span>
+                {{ 'app.listkdo.edit.returnslug'|trans }}
+            </a>
         </div>
     </div>
 
@@ -19,10 +25,12 @@
 
     <div class="row">
         <div class="small-4 columns text-left">
+            {% if is_granted('ROLE_ADMIN') %}
             <a class="link-return" href="{{ path('appbundle_listkdo') }}">
                 <i class="icon-arrow-left icon-large vertical"></i>
                 {{ 'link.return'|trans }}
             </a>
+            {% endif %}
         </div>
         <div class="small-4 columns text-center">
             {{ form(delete_form) }}

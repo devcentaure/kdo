@@ -102,10 +102,21 @@ class ListKdo implements ApyDataGridFilePathInterface
      */
     private $createdAt;
 
+
     /**
      * @var string
      *
      * @Assert\NotBlank
+     *
+     * @ORM\Column(name="helppass", type="string", length=255)
+     *
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     */
+    private $helppass;
+
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      *
@@ -185,7 +196,7 @@ class ListKdo implements ApyDataGridFilePathInterface
         if (isset($this->fileIcon)) {
             if (null !== $this->fileIcon) {
                 $oldFile = $this->getAbsoluteIcon();
-                if ($oldFile && isset($this->fileIcon)) {
+                if ($oldFile && isset($this->fileIcon) && isset($this->icon)) {
                     if (file_exists($oldFile)) {
                         unlink($oldFile);
                     }
@@ -199,7 +210,7 @@ class ListKdo implements ApyDataGridFilePathInterface
         if (isset($this->filePicture)) {
             if (null !== $this->filePicture) {
                 $oldFile = $this->getAbsolutePicture();
-                if ($oldFile && isset($this->filePicture)) {
+                if ($oldFile && isset($this->filePicture) && isset($this->picture)) {
                     if (file_exists($oldFile)) {
                         unlink($oldFile);
                     }
@@ -240,12 +251,12 @@ class ListKdo implements ApyDataGridFilePathInterface
      */
     public function removeUpload()
     {
-        if ($file = $this->getAbsoluteIcon()) {
+        if (isset($this->icon) && $file = $this->getAbsoluteIcon()) {
             if (file_exists($file)) {
                 unlink($file);
             }
         }
-        if ($file = $this->getAbsolutePicture()) {
+        if (isset($this->picture) && $file = $this->getAbsolutePicture()) {
             if (file_exists($file)) {
                 unlink($file);
             }
@@ -460,6 +471,24 @@ class ListKdo implements ApyDataGridFilePathInterface
     public function setKdos($kdos)
     {
         $this->kdos = $kdos;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHelppass()
+    {
+        return $this->helppass;
+    }
+
+    /**
+     * @param string $helppass
+     */
+    public function setHelppass($helppass)
+    {
+        $this->helppass = $helppass;
 
         return $this;
     }

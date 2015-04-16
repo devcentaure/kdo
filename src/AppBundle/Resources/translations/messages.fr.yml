@@ -9,6 +9,7 @@ entity:
         description: "Description"
         icon: "Vignette"
         picture: "Image de fond"
+        helppass: "Aide mémoire pour aider vos amis à trouver le mot de passe ( surnom, nom de la maman, Etc ...)"
     userlistkdo:
         user: "Utilisateur"
         listkdo: "Liste de Kdo"
@@ -25,13 +26,21 @@ app:
         title: "Liste des listes Kdo"
         list:
             title: "Liste Kdo Dispo"
+            create: "Créer ma liste"
+        new:
+            title: "Créer ma liste de Kdos"
+        edit:
+            title: "Modifier ma liste de Kdos"
+            returnslug: "Retour à ma liste de kdos"
         slug:
             title: "Detail de la liste %name%"
             needaccess: "S'inscrire à cette liste"
             viewaccess: "Voir le détail de cette liste"
             noaccess: "Vous n'avez pas accés à cette liste"
             alwaysaccess: "Vous avez déjà accés à cette liste"
+            update: "Modifier ma liste"
         getaccess:
             title: "Demande d'accés à la liste %name%"
-            wrongpass: "Password érroné"
-            rightpass: "Password accepté"
+            wrongpass: "Désolé mais ce n'est pas le bon mot de passe !"
+            rightpass: "Bienvenue - accès autorisé"
+            helppass: "Indication sur le mot de passe ..."

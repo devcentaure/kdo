@@ -1,19 +1,45 @@
+appbundle_listkdo:
+    path:     /adminlistkdo/
+    defaults: { _controller: "AppBundle:ListKdo:index" }
+
+appbundle_listkdo_show:
+    path:     /adminlistkdo/{id}/show/
+    defaults: { _controller: "AppBundle:ListKdo:show" }
+
+appbundle_listkdo_new:
+    path:     /list/new/
+    defaults: { _controller: "AppBundle:ListKdo:new" }
+
+appbundle_listkdo_create:
+    path:     /list/create/
+    defaults: { _controller: "AppBundle:ListKdo:create" }
+    methods:  POST
+
+appbundle_listkdo_edit:
+    path:     /list/{id}/edit/
+    defaults: { _controller: "AppBundle:ListKdo:edit" }
+
+appbundle_listkdo_update:
+    path:     /list/{id}/update/
+    defaults: { _controller: "AppBundle:ListKdo:update" }
+    methods:  [POST, PUT]
+
+appbundle_listkdo_delete:
+    path:     /list/{id}/delete/
+    defaults: { _controller: "AppBundle:ListKdo:delete" }
+    methods:  [POST, DELETE]
+
 appbundle_listkdo_list:
-    path:     /
+    path:     /list/
     defaults: { _controller: "AppBundle:ListKdo:list" }
 
 appbundle_listkdo_slug:
-    path:     /{slug}/
+    path:     /list/{slug}/
     defaults: { _controller: "AppBundle:ListKdo:slug" }
     requirements:
         slug: ^[a-z\-]+$
 
-appbundle_listkdo_listnew:
-    path:     /listnew/
-    defaults: { _controller: "AppBundle:ListKdo:listnew" }
-    methods:  [GET, POST]
-
 appbundle_listkdo_getaccess:
-    path:     /{id}/getaccess/
+    path:     /list/{id}/getaccess/
     defaults: { _controller: "AppBundle:ListKdo:getaccesslistkdo" }
     methods:  [GET, POST]

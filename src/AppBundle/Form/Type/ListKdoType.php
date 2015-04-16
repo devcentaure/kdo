@@ -49,6 +49,7 @@ class ListKdoType extends AbstractType
                 )
             )
             ->add('password', 'text', array('label' => 'entity.listkdo.password'))
+            ->add('helppass', null, array('label' => 'entity.listkdo.helppass'))
             ->add('user', null, array('label' => 'entity.listkdo.user'));
 
         $builder->addEventListener(
