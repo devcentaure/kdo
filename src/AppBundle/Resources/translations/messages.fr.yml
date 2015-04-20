@@ -39,8 +39,17 @@ app:
             noaccess: "Vous n'avez pas accés à cette liste"
             alwaysaccess: "Vous avez déjà accés à cette liste"
             update: "Modifier ma liste"
+            addkdo: "Ajouter un cadeau à ma liste"
+            listkdo: "Liste des Kdos"
         getaccess:
             title: "Demande d'accés à la liste %name%"
             wrongpass: "Désolé mais ce n'est pas le bon mot de passe !"
             rightpass: "Bienvenue - accès autorisé"
             helppass: "Indication sur le mot de passe ..."
+    kdo:
+        new:
+            title: "Création d'un Kdo"
+            title: "Ajout d'un cadeau dans la liste %name%"
+            returnliste: "Retour à ma liste"
+        edit:
+            title: "Création d'un Kdo"

@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    {{ 'app_kdo.index.title'|trans }}
+    {{ 'appbundle_kdo.index.title'|trans }}
 {% endblock title %}
 
 {% block page %}
@@ -48,13 +48,13 @@
 
                         <div class="row">
     <div class="small-4 columns text-left">
-        <a class="link-return" href="{{ path('app_kdo') }}">
+        <a class="link-return" href="{{ path('appbundle_kdo') }}">
             <i class="icon-arrow-left icon-large vertical"></i>
             {{ 'link.return'|trans }}
         </a>
     </div>
     <div class="small-4 columns text-center">
-        <a class="tiny button" href="{{ path('app_kdo_edit', { 'id': entity.id }) }}">
+        <a class="tiny button" href="{{ path('appbundle_kdo_edit', { 'id': entity.id }) }}">
             {{ 'button.update'|trans }}
         </a>
     </div>

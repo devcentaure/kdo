@@ -53,11 +53,12 @@ class ListKdoController extends MainController
 
             $security = $this->container->get('security.context');
 
-            if($security->isGranted('ROLE_ADMIN') === true){
+            if ($security->isGranted('ROLE_ADMIN') === true) {
                 return $this->redirect(
                     $this->generateUrl('appbundle_listkdo_show', array('id' => $event->getListKdo()->getId()))
                 );
             }
+
             return $this->redirect(
                 $this->generateUrl('appbundle_listkdo_slug', array('slug' => $event->getListKdo()->getSlug()))
             );
@@ -260,7 +261,7 @@ class ListKdoController extends MainController
         $form->handleRequest($request);
 
         $security = $this->container->get('security.context');
-        
+
         if ($form->isValid()) {
 
             $manager = $this->container->get('app_manager_listkdo');
@@ -283,9 +284,10 @@ class ListKdoController extends MainController
             $this->deleteSuccess();
         }
 
-        if($security->isGranted('ROLE_ADMIN')){
+        if ($security->isGranted('ROLE_ADMIN')) {
             return $this->redirect($this->generateUrl('appbundle_listkdo'));
         }
+
         return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
     }
 

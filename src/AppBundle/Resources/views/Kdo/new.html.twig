@@ -1,14 +1,20 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-    {{ 'app_kdo.index.title'|trans }}
+    {{ 'app.kdo.new.title'|trans }}
 {% endblock title %}
 
 
 {% block page %}
     <div class="row">
         <div class="medium-12 columns">
-            <h1 class="text-center title">Kdo creation</h1>
+            <h1 class="text-center title">
+                {% if entity.listkdo %}
+                    {{ 'app.kdo.new.add'|trans({'%name%': entity.listkdo.name}) }}
+                    {% else %}
+                    {{ 'app.kdo.new.title'|trans }}
+                {% endif %}
+            </h1>
         </div>
     </div>
 
@@ -18,10 +24,18 @@
 
     <div class="row">
         <div class="small-4 columns text-left">
-            <a class="link-return" href="{{ path('app_kdo') }}">
-                <i class="icon-arrow-left icon-large vertical"></i>
-                {{ 'link.return'|trans }}
-            </a>
+            {% if entity.listkdo %}
+                <a class="link-return" href="{{ path('appbundle_listkdo_slug', {'slug':  entity.listkdo.slug}) }}">
+                    <i class="icon-arrow-left icon-large vertical"></i>
+                    {{ 'app.kdo.new.returnliste'|trans }}
+                </a>
+                {% else %}
+                    <a class="link-return" href="{{ path('appbundle_kdo') }}">
+                        <i class="icon-arrow-left icon-large vertical"></i>
+                        {{ 'link.return'|trans }}
+                    </a>
+            {% endif %}
+
         </div>
     </div>
 

@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    {{ 'app_kdo.index.title'|trans }}
+    {{ 'appbundle_kdo.index.title'|trans }}
 {% endblock title %}
 
 {% block page %}
@@ -17,16 +17,16 @@
     </div>
 
 
-    <div class="row">
-        <div class="small-4 columns text-left">
-            <a class="link-return" href="{{ path('app_kdo') }}">
-                <i class="icon-arrow-left icon-large vertical"></i>
-                {{ 'link.return'|trans }}
-            </a>
-        </div>
-        <div class="small-4 columns text-center">
-            {{ form(delete_form) }}
-        </div>
+        <div class="row">
+    <div class="small-4 columns text-left">
+        <a class="link-return" href="{{ path('appbundle_kdo') }}">
+            <i class="icon-arrow-left icon-large vertical"></i>
+            {{ 'link.return'|trans }}
+        </a>
     </div>
+    <div class="small-4 columns text-center">
+        {{ form(delete_form) }}
+    </div>
+</div>
 
 {% endblock %}

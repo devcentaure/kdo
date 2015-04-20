@@ -7,14 +7,47 @@
 
 {% block page %}
 
-    {% if is_granted('LISTKDO_DELETE', entity) %}
+    <div class="" style="
+            background-image: url('/{{ entity.webpicture }}');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            ">
 
-        <a href="{{ path('appbundle_listkdo_edit', {'id': entity.id}) }}" class="tiny button success">
-            {{ 'app.listkdo.slug.update'|trans }}
-        </a>
+        {% if is_granted('LISTKDO_DELETE', entity) %}
 
-    {% endif %}
+            <a href="{{ path('appbundle_listkdo_edit', {'id': entity.id}) }}" class="tiny button success">
+                {{ 'app.listkdo.slug.update'|trans }}
+            </a>
 
-    {% include 'AppBundle:ListKdo:include/div-listkdo.html.twig' with{'entity': entity} %}
+        {% endif %}
+
+        {% include 'AppBundle:ListKdo:include/div-listkdo.html.twig' with{'entity': entity} %}
+
+        {% if is_granted('LISTKDO_DELETE', entity) %}
+
+            <a href="{{ path('appbundle_kdo_create_listkdo', {'id': entity.id}) }}" class="tiny button success">
+                {{ 'app.listkdo.slug.addkdo'|trans }}
+            </a>
+
+        {% endif %}
+
+
+        <div class="row">
+            <div class="medium-10 medium-centered columns panel">
+                <h2 class="text-center">
+                    {{ 'app.listkdo.slug.listkdo'|trans }}
+                </h2>
+                <ul class="small-block-grid-1">
+                    {% for key,kdo in entity.kdos %}
+                        {% if key != 0 %}
+                            <hr>
+                        {% endif %}
+                        {% include 'AppBundle:Kdo:include/li-kdo.html.twig' with{'entity': kdo} %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
 
 {% endblock %}

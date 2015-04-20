@@ -36,22 +36,36 @@ class KdoController extends MainController
      * Creates a new Kdo entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
         $manager = $this->container->get('app_manager_kdo');
         $entity = $manager->createEntity();
-        $form = $this->createCreateForm($entity, $manager);
 
+        if(isset($id)){
+            $manager2 = $this->container->get('app_manager_listkdo');
+
+            $listkdo = $manager2->find($id);
+            $entity->setListKdo($listkdo);
+        }
+
+        $form = $this->createCreateForm($entity, $manager);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+            $security = $this->container->get('security.context');
+            if ($security->isGranted('LISTKDO_UPDATE', $entity->getListKdo()) === false) {
+                $this->displayError('app.listkdo.slug.noaccess');
+
+                return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+            }
 
             $this->createSuccess();
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('app_kdo_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getListkdo()->getSlug())));
         }
 
         return $this->render(
@@ -72,11 +86,15 @@ class KdoController extends MainController
      */
     private function createCreateForm(Kdo $entity, $manager)
     {
+        $link = $this->generateUrl('appbundle_kdo_create');
+        if($entity->getListkdo() !== null){
+            $link = $this->generateUrl('appbundle_kdo_create_listkdo', array('id' => $entity->getListkdo()->getId()));
+        }
         $form = $this->createForm(
             $manager->getFormName(),
             $entity,
             array(
-                'action' => $this->generateUrl('app_kdo_create'),
+                'action' => $link,
                 'method' => 'POST',
             )
         );
@@ -174,7 +192,7 @@ class KdoController extends MainController
             $manager->getFormName(),
             $entity,
             array(
-                'action' => $this->generateUrl('app_kdo_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('appbundle_kdo_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -194,20 +212,32 @@ class KdoController extends MainController
      */
     public function updateAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $manager = $this->container->get('app_manager_kdo');
 
         $entity = $manager->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Kdo entity.');
+        }
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity, $manager);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $this->updateSuccess();
             $em->flush();
 
-            return $this->redirect($this->generateUrl('app_kdo_edit', array('id' => $id)));
+            $security = $this->container->get('security.context');
+            if ($security->isGranted('LISTKDO_UPDATE', $entity->getListkdo()) === false) {
+                $this->displayError('app.listkdo.slug.noaccess');
+
+                return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+            }
+            return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getListkdo()->getSlug())));
+
         }
 
         return $this->render(
@@ -231,7 +261,6 @@ class KdoController extends MainController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
             $manager = $this->container->get('app_manager_kdo');
 
             $entity = $manager->find($id);
@@ -245,7 +274,7 @@ class KdoController extends MainController
             $this->deleteSuccess();
         }
 
-        return $this->redirect($this->generateUrl('app_kdo'));
+        return $this->redirect($this->generateUrl('appbundle_kdo'));
     }
 
     /**
@@ -258,7 +287,7 @@ class KdoController extends MainController
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('app_kdo_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('appbundle_kdo_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add(
                 'submit',

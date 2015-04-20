@@ -1,9 +1,9 @@
-app_app_kdo:
-    resource: "@AppBundle/Resources/config/routing/admin_kdo.yml"
+app_appbundle_kdo:
+    resource: "@AppBundle/Resources/config/routing/kdo.yml"
     prefix:   /kdo/
 
 app_appbundle_userlistkdo:
-    resource: "@AppBundle/Resources/config/routing/admin_userlistkdo.yml"
+    resource: "@AppBundle/Resources/config/routing/userlistkdo.yml"
     prefix:   /userlistkdo/
 
 app_appbundle_listkdo:

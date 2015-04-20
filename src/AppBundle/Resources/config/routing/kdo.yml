@@ -15,6 +15,13 @@ appbundle_kdo_create:
     defaults: { _controller: "AppBundle:Kdo:create" }
     methods:  POST
 
+appbundle_kdo_create_listkdo:
+    path:     /create/{id}/
+    defaults: { _controller: "AppBundle:Kdo:create" }
+    methods:  POST|GET
+    requirements:
+        id: \d+
+
 appbundle_kdo_edit:
     path:     /{id}/edit/
     defaults: { _controller: "AppBundle:Kdo:edit" }

@@ -55,3 +55,6 @@ security:
         - { path: ^/adminlistkdo/, role: ROLE_ADMIN }
         - { path: ^/list/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/list/, role: ROLE_USER }
+        - { path: ^/kdo/$, role: ROLE_ADMIN }
+        - { path: ^/kdo/new/$, role: ROLE_ADMIN }
+        - { path: ^/kdo/, role: ROLE_USER }
