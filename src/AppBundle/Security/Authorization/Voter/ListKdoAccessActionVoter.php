@@ -34,7 +34,8 @@ class ListKdoAccessActionVoter implements VoterInterface
     {
         $supportedClass = 'AppBundle\Entity\ListKdo';
 
-        return ($class === $supportedClass);
+        return ($class === $supportedClass || $class === 'Proxies\\__CG__\\' . $supportedClass);
+
     }
 
     public function vote(TokenInterface $token, $entity, array $attributes)

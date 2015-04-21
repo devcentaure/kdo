@@ -166,6 +166,13 @@ class KdoController extends MainController
             throw $this->createNotFoundException('Unable to find Kdo entity.');
         }
 
+        $security = $this->container->get('security.context');
+        if ($security->isGranted('LISTKDO_UPDATE', $entity->getListKdo()) === false) {
+            $this->displayError('app.listkdo.slug.noaccess');
+
+            return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+        }
+
         $editForm = $this->createEditForm($entity, $manager);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -227,8 +234,6 @@ class KdoController extends MainController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $this->updateSuccess();
-            $em->flush();
 
             $security = $this->container->get('security.context');
             if ($security->isGranted('LISTKDO_UPDATE', $entity->getListkdo()) === false) {
@@ -236,6 +241,10 @@ class KdoController extends MainController
 
                 return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
             }
+
+            $this->updateSuccess();
+            $em->flush();
+
             return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getListkdo()->getSlug())));
 
         }
@@ -259,6 +268,8 @@ class KdoController extends MainController
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        $security = $this->container->get('security.context');
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $manager = $this->container->get('app_manager_kdo');
@@ -269,12 +280,22 @@ class KdoController extends MainController
                 throw $this->createNotFoundException('Unable to find Kdo entity.');
             }
 
+            if ($security->isGranted('LISTKDO_DELETE', $entity->getListkdo()) === false) {
+                $this->displayError('app.listkdo.slug.noaccess');
+
+                return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+            }
+
             $em->remove($entity);
             $em->flush();
             $this->deleteSuccess();
         }
 
-        return $this->redirect($this->generateUrl('appbundle_kdo'));
+        if ($security->isGranted('ROLE_ADMIN')){
+            return $this->redirect($this->generateUrl('appbundle_kdo'));
+        }
+
+        return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
     }
 
     /**

@@ -370,9 +370,11 @@ class ListKdoController extends MainController
         }
 
         if ($security->isGranted('LISTKDO_VIEW', $entity) === true) {
-            $this->displayError('app.listkdo.slug.alwaysaccess');
+            $this->displaySuccess('app.listkdo.slug.alwaysaccess');
 
-            return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
+            return $this->redirect(
+                $this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getSlug()))
+            );
         }
 
         $form = $this->createGetAccessForm($entity->getId());

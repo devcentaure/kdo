@@ -13,9 +13,9 @@
             background-repeat: no-repeat;
             ">
 
-        {% if is_granted('LISTKDO_DELETE', entity) %}
+        {% if is_granted('LISTKDO_UPDATE', entity) %}
 
-            <a href="{{ path('appbundle_listkdo_edit', {'id': entity.id}) }}" class="tiny button success">
+            <a href="{{ path('appbundle_listkdo_edit', {'id': entity.id}) }}" class="tiny button ">
                 {{ 'app.listkdo.slug.update'|trans }}
             </a>
 
@@ -23,9 +23,9 @@
 
         {% include 'AppBundle:ListKdo:include/div-listkdo.html.twig' with{'entity': entity} %}
 
-        {% if is_granted('LISTKDO_DELETE', entity) %}
+        {% if is_granted('LISTKDO_UPDATE', entity) %}
 
-            <a href="{{ path('appbundle_kdo_create_listkdo', {'id': entity.id}) }}" class="tiny button success">
+            <a href="{{ path('appbundle_kdo_create_listkdo', {'id': entity.id}) }}" class="tiny button ">
                 {{ 'app.listkdo.slug.addkdo'|trans }}
             </a>
 
@@ -37,14 +37,14 @@
                 <h2 class="text-center">
                     {{ 'app.listkdo.slug.listkdo'|trans }}
                 </h2>
-                <ul class="small-block-grid-1">
-                    {% for key,kdo in entity.kdos %}
-                        {% if key != 0 %}
-                            <hr>
-                        {% endif %}
-                        {% include 'AppBundle:Kdo:include/li-kdo.html.twig' with{'entity': kdo} %}
-                    {% endfor %}
-                </ul>
+                {% for key,kdo in entity.kdos %}
+                    {% if key != 0 %}
+                        <hr>
+                    {% endif %}
+
+                    {% include 'AppBundle:Kdo:include/div-kdo.html.twig' with{'entity': kdo} %}
+
+                {% endfor %}
             </div>
         </div>
 

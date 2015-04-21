@@ -31,11 +31,11 @@ class KdoType extends AbstractType
     {
         $security = $this->security;
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('quantity')
-            ->add('link')
-            ->add('price');
+            ->add('name', null, array('label' => 'entity.kdo.name'))
+            ->add('description', null, array('label' => 'entity.kdo.description'))
+            ->add('link', null, array('label' => 'entity.kdo.link'))
+            ->add('quantity', null, array('label' => 'entity.kdo.quantity'))
+            ->add('price', null, array('label' => 'entity.kdo.price'));
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,

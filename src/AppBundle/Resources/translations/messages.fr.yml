@@ -47,9 +47,18 @@ app:
             rightpass: "Bienvenue - accès autorisé"
             helppass: "Indication sur le mot de passe ..."
     kdo:
+        index:
+            title: "Administration des Kdos"
         new:
             title: "Création d'un Kdo"
-            title: "Ajout d'un cadeau dans la liste %name%"
+            title: "Ajout d'un Kdo dans la liste %name%"
             returnliste: "Retour à ma liste"
+            add: "Ajout d'un Kdo dans ma liste %name%"
         edit:
-            title: "Création d'un Kdo"
+            title: "Modification d'un Kdo dans ma liste %name%"
+            returnliste: "Retour à ma liste"
+        include:
+            link: "Lien Kdo"
+            quantity: "Quantité"
+            price: "Prix U."
+            update: "Modifier le Kdo"
