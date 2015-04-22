@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppEvent;
 use Symfony\Component\HttpFoundation\Request;
 use ZIMZIM\ToolsBundle\Controller\MainController;
 
@@ -60,10 +61,10 @@ class KdoController extends MainController
                 return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
             }
 
+            $event = $this->container->get('app.event.kdo');
+            $event->setKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::KdoAdd, $event);
             $this->createSuccess();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
 
             return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getListkdo()->getSlug())));
         }
@@ -242,8 +243,10 @@ class KdoController extends MainController
                 return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
             }
 
+            $event = $this->container->get('app.event.kdo');
+            $event->setKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::KdoUpdate, $event);
             $this->updateSuccess();
-            $em->flush();
 
             return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getListkdo()->getSlug())));
 
@@ -286,8 +289,9 @@ class KdoController extends MainController
                 return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
             }
 
-            $em->remove($entity);
-            $em->flush();
+            $event = $this->container->get('app.event.kdo');
+            $event->setKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::KdoDelete, $event);
             $this->deleteSuccess();
         }
 

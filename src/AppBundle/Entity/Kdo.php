@@ -44,7 +44,7 @@ class Kdo
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
@@ -54,6 +54,7 @@ class Kdo
      * @var integer
      *
      * @Assert\NotBlank
+     * @Assert\Range(min=1, max=999)
      *
      * @ORM\Column(name="quantity", type="integer")
      *
@@ -74,6 +75,7 @@ class Kdo
      * @var string
      *
      * @Assert\NotBlank
+     * @Assert\Range(min=0, max=999999)
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
      *
@@ -103,6 +105,97 @@ class Kdo
      */
     private $listkdo;
 
+    /******************************* FILE ***********************************/
+
+
+    /**
+     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     */
+    private $fileIcon;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, name="icon")
+     *
+     * @GRID\Column(operatorsVisible=false, safe=false, filterable=false, sortable=false, title="entity.listkdo.icon")
+     */
+    private $icon;
+
+    public function getAbsoluteIcon()
+    {
+        return null === $this->icon ? null : $this->getUploadRootDir() . '/' . $this->icon;
+    }
+
+    public function getWebIcon()
+    {
+        return null === $this->icon ? null : $this->getUploadDir().'/'.$this->icon;
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'resources/kdo';
+    }
+
+    public function getListAttrImg()
+    {
+        return array('icon');
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (isset($this->fileIcon)) {
+            if (null !== $this->fileIcon) {
+                $oldFile = $this->getAbsoluteIcon();
+                if ($oldFile && isset($this->fileIcon) && isset($this->icon)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $this->icon = sha1(uniqid(mt_rand(), true)) . '.' . $this->fileIcon->guessExtension();
+            }
+        }
+
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (isset($this->fileIcon)) {
+            if (null === $this->fileIcon) {
+                return;
+            }
+            $this->fileIcon->move($this->getUploadRootDir(), $this->icon);
+            unset($this->fileIcon);
+        }
+
+    }
+
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->icon) && $file = $this->getAbsoluteIcon()) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
+    }
+
+    /******************************* END FILE ***********************************/
 
     /**
      * Get id
@@ -274,4 +367,42 @@ class Kdo
     {
         return $this->listkdo;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFileIcon()
+    {
+        return $this->fileIcon;
+    }
+
+    /**
+     * @param mixed $fileIcon
+     */
+    public function setFileIcon($fileIcon)
+    {
+        $this->fileIcon = $fileIcon;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param mixed $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+
 }

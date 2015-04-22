@@ -21,7 +21,18 @@ entity:
         quantity: "Quantité"
         price: "Prix Unitaire"
         listkdo: "Liste"
+        icon: "photo"
 app:
+    home:
+        index:
+            title: "Kdo and co - votre liste de cadeaux sans contraintes"
+            title2: "Liste de mariage, d'anniversaire, de naissance, Marre d'avoir le cadeau en double ou alors des \"trucs\" complétement inutiles ..."
+            title3 : "Heurement Kdo and CO est la pour vous :)"
+            desc1: >
+                - Création et gestion de vos listes pour tous vos évenements.<br />
+                - Total liberté sur le choix des produits de votre liste.<br />
+                - Pas de contact avec l'argent. Kdo and Co est la en tant que outil pour vous permettre de gérer vos listes éfficacement.<br />
+            createlist: "Envie d'essayer Kdo and CO ? Je crée ma liste"
     listkdo:
         title: "Liste des listes Kdo"
         list:

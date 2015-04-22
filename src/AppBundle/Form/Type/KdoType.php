@@ -32,8 +32,8 @@ class KdoType extends AbstractType
         $security = $this->security;
         $builder
             ->add('name', null, array('label' => 'entity.kdo.name'))
-            ->add('description', null, array('label' => 'entity.kdo.description'))
-            ->add('link', null, array('label' => 'entity.kdo.link'))
+            ->add('description', null, array('label' => 'entity.kdo.description', 'required' => false))
+            ->add('link', null, array('label' => 'entity.kdo.link', 'required' => false))
             ->add('quantity', null, array('label' => 'entity.kdo.quantity'))
             ->add('price', null, array('label' => 'entity.kdo.price'));
 
@@ -46,6 +46,23 @@ class KdoType extends AbstractType
                 if ($security->isGranted('ROLE_ADMIN') === true) {
                     $form->add('listkdo');
                 }
+
+                $tmpFileName = '';
+                $methodName = 'getWebIcon';
+                if ($kdo->getId() !== null) {
+                    $tmpFileName = $kdo->$methodName();
+                }
+                $form->add(
+                    'fileIcon',
+                    'zimzim_toolsbundle_zimzimimage',
+                    array(
+                        'label' => 'entity.kdo.icon',
+                        'attr' => array(
+                            'url' => $tmpFileName,
+                            'label-inline' => 'label-inline'
+                        )
+                    )
+                );
             }
         );
     }

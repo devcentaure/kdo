@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="small-12 columns">
-        <h3 class="text-center">
+    <div class="small-8 columns">
+        <h3 class="text-left">
             {% if is_granted('LISTKDO_UPDATE', entity.listkdo) %}
 
                 <a href="{{ path('appbundle_kdo_edit', {'id': entity.id}) }}" class="tiny button  vertical">
@@ -16,6 +16,11 @@
             </p>
         {% endif %}
     </div>
+    {% if entity.icon %}
+        <div class="small-4 columns">
+            <img src="/{{ entity.webicon }}"/>
+        </div>
+    {% endif %}
     <div class="small-3 columns">
         <p class="nomargin nopadding">
             {{ 'app.kdo.include.quantity'|trans }} : {{ entity.quantity }}
@@ -26,10 +31,12 @@
             {{ 'app.kdo.include.price'|trans }} : {{ entity.price }}
         </p>
     </div>
-    <div class="small-6 columns">
-        <a href="{{ entity.link }}" target="_blank" class="text-right">
-            <span class="icon-coin-euro icon-xx-large vertical"></span>
-            {{ 'app.kdo.include.link'|trans }}
-        </a>
-    </div>
+    {% if entity.link %}
+        <div class="small-6 columns">
+            <a href="{{ entity.link }}" target="_blank" class="text-right">
+                <span class="icon-coin-euro icon-xx-large vertical"></span>
+                {{ 'app.kdo.include.link'|trans }}
+            </a>
+        </div>
+    {% endif %}
 </div>

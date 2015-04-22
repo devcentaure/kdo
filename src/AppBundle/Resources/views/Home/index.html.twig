@@ -1,7 +1,30 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+    {{ 'app.home.index.title'|trans }}
+{% endblock title %}
+
 {% block page %}
 
-    <h1>bip bip bip</h1>
+    <div class="row">
+        <div class="small columns text-center">
+            <h1 class="title  text-center">
+                {{ 'app.home.index.title'|trans }}
+            </h1>
+            <hr>
+            <h2 class="title  text-left">
+                {{ 'app.home.index.title2'|trans }}
+            </h2>
+            <h3 class="title  text-left">
+                {{ 'app.home.index.title3'|trans }}
+            </h3>
+            <p class="nomargin nopadding text-left">
+                {{ 'app.home.index.desc1'|trans|raw }}
+            </p>
+            <a href="{{ path('appbundle_listkdo_new') }}" class="tiny button success">
+                {{ 'app.home.index.createlist'|trans }}
+            </a>
+        </div>
+    </div>
 
 {% endblock page %}

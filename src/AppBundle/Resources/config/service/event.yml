@@ -1,3 +1,5 @@
 services:
     app.event.listkdo:
         class: AppBundle\Event\ListKdoEvent
+    app.event.kdo:
+        class: AppBundle\Event\KdoEvent
