@@ -4,6 +4,30 @@
 @import "_foundation_mod";
 @import "_iconmoon";
 
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+}
+
+div.container {
+    min-height: 100%;
+    padding-bottom: 175px;
+}
+
+footer {
+    position: relative;
+    min-height: 175px;
+    margin-top: -176px !important;
+    background: $topbar-bg-color;
+    p {
+        padding-right:3rem;
+    }
+}
+
 
 nav.top-bar li.name a{
     line-height: $topbar-height;
@@ -72,4 +96,22 @@ h2.listkdo-title{
 
 .inlineblock{
     display:inline-block;
+}
+
+div.item-kdo{
+    position: relative;
+    //border-right: 1px SOLID $primary-color;
+    //border-left: 1px SOLID $primary-color;
+    border-bottom: 1px SOLID $primary-color;
+    padding: 0.2rem 0.5rem;
+}
+
+div.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
 }

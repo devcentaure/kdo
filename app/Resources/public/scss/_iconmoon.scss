@@ -13,14 +13,13 @@
 .icon-normal{
     font-size: 1rem;
 }
-
 @font-face {
     font-family: 'icomoon';
-    src:url('/fonts/icomoon.eot?-dxt9lc');
-    src:url('/fonts/icomoon.eot?#iefix-dxt9lc') format('embedded-opentype'),
-    url('/fonts/icomoon.woff?-dxt9lc') format('woff'),
-    url('/fonts/icomoon.ttf?-dxt9lc') format('truetype'),
-    url('/fonts/icomoon.svg?-dxt9lc#icomoon') format('svg');
+    src:url('/fonts/icomoon.eot?y5qyp4');
+    src:url('/fonts/icomoon.eot?#iefixy5qyp4') format('embedded-opentype'),
+    url('/fonts/icomoon.woff?y5qyp4') format('woff'),
+    url('/fonts/icomoon.ttf?y5qyp4') format('truetype'),
+    url('/fonts/icomoon.svg?y5qyp4#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -51,6 +50,10 @@
     content: "\e90d";
 }
 
+.icon-cart:before {
+    content: "\e93a";
+}
+
 .icon-coin-euro:before {
     content: "\e93c";
 }
@@ -65,6 +68,10 @@
 
 .icon-hour-glass:before {
     content: "\e979";
+}
+
+.icon-cog:before {
+    content: "\e994";
 }
 
 .icon-eye:before {
@@ -83,7 +90,13 @@
     content: "\ea36";
 }
 
+.icon-arrow-right2:before {
+    content: "\ea3c";
+}
+
+.icon-arrow-left2:before {
+    content: "\ea40";
+}
 .icon-arrow-left:before {
     content: "\ea40";
 }
-

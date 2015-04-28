@@ -38,9 +38,6 @@
                     {{ 'app.listkdo.slug.listkdo'|trans }}
                 </h2>
                 {% for key,kdo in entity.kdos %}
-                    {% if key != 0 %}
-                        <hr>
-                    {% endif %}
 
                     {% include 'AppBundle:Kdo:include/div-kdo.html.twig' with{'entity': kdo} %}
 

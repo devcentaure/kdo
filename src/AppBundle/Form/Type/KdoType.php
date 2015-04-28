@@ -16,9 +16,9 @@ class KdoType extends AbstractType
 
     private $security;
 
-    public function  __construct($listKdoManager, SecurityContext $securityContext)
+    public function  __construct($kdoManager, SecurityContext $securityContext)
     {
-        $this->kdoManager = $listKdoManager;
+        $this->kdoManager = $kdoManager;
 
         $this->security = $securityContext;
     }

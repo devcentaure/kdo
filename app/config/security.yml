@@ -58,3 +58,6 @@ security:
         - { path: ^/kdo/$, role: ROLE_ADMIN }
         - { path: ^/kdo/new/$, role: ROLE_ADMIN }
         - { path: ^/kdo/, role: ROLE_USER }
+        - { path: ^/userkdo/$, role: ROLE_ADMIN }
+        - { path: ^/userkdo/new/$, role: ROLE_ADMIN }
+        - { path: ^/userkdo/, role: ROLE_USER }

@@ -17,7 +17,7 @@ use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridFilePathInterface;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\KdoRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Kdo
+class Kdo implements ApyDataGridFilePathInterface
 {
     /**
      * @var integer
@@ -75,13 +75,27 @@ class Kdo
      * @var string
      *
      * @Assert\NotBlank
-     * @Assert\Range(min=0, max=999999)
+     * @Assert\Range(min=0.01, max=999999)
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
      *
      * @GRID\Column(operatorsVisible=false, filter="select", source=true, title="entity.kdo.price")
      */
     private $price;
+
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Range(min=0, max=999999)
+     *
+     * @ORM\Column(name="forecast", type="decimal", precision=10, scale=2)
+     *
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false )
+     */
+    private $forecast;
+
 
     /**
      * @var \DateTime
@@ -104,6 +118,22 @@ class Kdo
      * source=true, field="listkdo.name", title="entity.kdo.listkdo")
      */
     private $listkdo;
+
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserKdo", mappedBy="kdo", cascade={"persist", "remove"})
+     */
+    private $usersKdo;
+
+
+    public function __construct(){
+        $this->usersKdo = new ArrayCollection();
+    }
+
+
+
 
     /******************************* FILE ***********************************/
 
@@ -404,5 +434,44 @@ class Kdo
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $usersKdo
+     */
+    public function setUsersKdo($usersKdo)
+    {
+        $this->usersKdo = $usersKdo;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getUsersKdo()
+    {
+        return $this->usersKdo;
+    }
+
+    /**
+     * @param string $forecast
+     */
+    public function setForecast($forecast)
+    {
+        $this->forecast = $forecast;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getForecast()
+    {
+        return $this->forecast;
+    }
 }

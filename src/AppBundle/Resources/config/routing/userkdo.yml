@@ -1,0 +1,37 @@
+appbundle_userkdo:
+    path:     /
+    defaults: { _controller: "AppBundle:UserKdo:index" }
+
+appbundle_userkdo_show:
+    path:     /{id}/show/
+    defaults: { _controller: "AppBundle:UserKdo:show" }
+
+appbundle_userkdo_new:
+    path:     /new/
+    defaults: { _controller: "AppBundle:UserKdo:new" }
+
+appbundle_userkdo_create:
+    path:     /create/
+    defaults: { _controller: "AppBundle:UserKdo:create" }
+    methods:  POST
+
+appbundle_userkdo_create_kdo:
+    path:     /create/{id}/
+    defaults: { _controller: "AppBundle:UserKdo:create" }
+    methods:  POST|GET
+    requirements:
+        id: \d+
+
+appbundle_userkdo_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "AppBundle:UserKdo:edit" }
+
+appbundle_userkdo_update:
+    path:     /{id}/update/
+    defaults: { _controller: "AppBundle:UserKdo:update" }
+    methods:  [POST, PUT]
+
+appbundle_userkdo_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "AppBundle:UserKdo:delete" }
+    methods:  [POST, DELETE]

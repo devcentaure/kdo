@@ -27,7 +27,4 @@ class KdoEvent extends Event
     {
         return $this->kdo;
     }
-
-
-
-} 
+}

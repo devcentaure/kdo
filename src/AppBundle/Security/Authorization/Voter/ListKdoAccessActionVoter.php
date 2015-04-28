@@ -54,11 +54,9 @@ class ListKdoAccessActionVoter implements VoterInterface
         if (!$user instanceof UserInterface) {
             return VoterInterface::ACCESS_DENIED;
         }
-
         if ($this->voter->vote($token, null, array('ROLE_ADMIN')) === VoterInterface::ACCESS_GRANTED) {
             return VoterInterface::ACCESS_GRANTED;
         }
-
         if ($this->voter->vote($token, null, array('ROLE_USER')) === VoterInterface::ACCESS_GRANTED) {
 
             if($entity->getUser() === $user){
