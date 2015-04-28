@@ -26,8 +26,9 @@ class KdoListener implements EventSubscriberInterface
     {
         return array(
             AppEvent::KdoAdd => 'kdoAdd',
-            AppEvent::KdoUpdate=> 'kdoUpdate',
-            AppEvent::KdoDelete => 'kdoDelete'
+            AppEvent::KdoUpdate => 'kdoUpdate',
+            AppEvent::KdoDelete => 'kdoDelete',
+            AppEvent::KdoCalculate => 'kdoCalculate'
         );
     }
 
@@ -35,7 +36,7 @@ class KdoListener implements EventSubscriberInterface
     {
         $this->em->persist($kdoEvent->getKdo());
         $this->em->flush();
-
+        $this->kdoCalculate($kdoEvent);
     }
 
     public function kdoUpdate(KdoEvent $kdoEvent)
@@ -43,12 +44,31 @@ class KdoListener implements EventSubscriberInterface
         $kdoEvent->getKdo()->preUpload();
         $this->em->persist($kdoEvent->getKdo());
         $this->em->flush();
+        $this->kdoCalculate($kdoEvent);
     }
 
     public function kdoDelete(KdoEvent $kdoEvent)
     {
         $this->em->remove($kdoEvent->getKdo());
         $this->em->flush();
+        $this->kdoCalculate($kdoEvent);
+    }
 
+    public function kdoCalculate(KdoEvent $kdoEvent)
+    {
+        $entity = $kdoEvent->getKdo();
+
+        $usersKdo = $this->em->getRepository('AppBundle:UserKdo')->findBy(array('kdo' => $entity));
+
+        if ($usersKdo > 0) {
+            $somme = 0;
+            foreach ($usersKdo as $uk) {
+                $somme += $uk->getUserShare();
+            }
+
+            $entity->setForecast($somme);
+            $this->em->persist($kdoEvent->getKdo());
+            $this->em->flush();
+        }
     }
 }

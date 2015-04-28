@@ -1,0 +1,6 @@
+entity:
+    listkdo:
+        slug: "Les caratéres non acccentué et le - sont acceptés"
+    userkdo:
+        shareuser_max: "Le montant est supérieur à la somme maximal du Kdo"
+        shareuser_value: "Le montant ne peux excéder %value% €"

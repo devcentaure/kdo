@@ -5,3 +5,5 @@ services:
         class: AppBundle\Entity\UserListKdo
     app_entity_kdo:
         class: AppBundle\Entity\Kdo
+    app_entity_userkdo:
+        class: AppBundle\Entity\UserKdo

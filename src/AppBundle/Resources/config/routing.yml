@@ -1,3 +1,7 @@
+app_appbundle_userkdo:
+    resource: "@AppBundle/Resources/config/routing/userkdo.yml"
+    prefix:   /userkdo/
+
 app_appbundle_kdo:
     resource: "@AppBundle/Resources/config/routing/kdo.yml"
     prefix:   /kdo/

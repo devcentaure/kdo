@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% if entity.kdo != null %}
+    {% set title = 'app.userkdo.new.title2'|trans({'%name%': entity.kdo.name}) %}
+{% else %}
+    {% set title = 'app.userkdo.new.title'|trans %}
+{% endif %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+
+{% block page %}
+    <div class="row">
+        <div class="medium-12 columns">
+            <h1 class="text-center title">
+                {{ title }}
+            </h1>
+        </div>
+        {% if entity.kdo != null %}
+            <div class="small-6 columns">
+                <p class="nomargin nopadding">
+                    {{ 'app.kdo.include.quantity'|trans }} : {{ entity.kdo.quantity }}
+                </p>
+            </div>
+            <div class="small-6 columns">
+                <p class="nomargin nopadding">
+                    {{ 'app.kdo.include.price'|trans }} : {{ entity.kdo.price }}
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        {{ form(form) }}
+    </div>
+
+    <div class="row">
+        <div class="small-4 columns text-left">
+            {% if entity.kdo == null %}
+                <a class="link-return" href="{{ path('appbundle_userkdo') }}">
+                    <i class="icon-arrow-left icon-large vertical"></i>
+                    {{ 'link.return'|trans }}
+                </a>
+            {% else %}
+                <a class="link-return" href="{{ path('appbundle_listkdo_slug', {'slug':  entity.kdo.listkdo.slug}) }}">
+                    <i class="icon-arrow-left icon-large vertical"></i>
+                    {{ 'link.return'|trans }}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

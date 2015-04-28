@@ -22,6 +22,15 @@ entity:
         price: "Prix Unitaire"
         listkdo: "Liste"
         icon: "photo"
+    userkdo:
+        user: "Utilisateur"
+        kdo: "Kdo"
+        createdat: "Le"
+        usershare: "Montant"
+        auction:
+            choice1: "Participer au pot commun"
+            choice2: "Acheter le Kdo"
+            label: "Participer"
 app:
     home:
         index:
@@ -33,6 +42,7 @@ app:
                 - Total liberté sur le choix des produits de votre liste.<br />
                 - Pas de contact avec l'argent. Kdo and Co est la en tant que outil pour vous permettre de gérer vos listes éfficacement.<br />
             createlist: "Envie d'essayer Kdo and CO ? Je crée ma liste"
+            findlist: "Non, je cherche une liste créer par un ami..."
     listkdo:
         title: "Liste des listes Kdo"
         list:
@@ -71,5 +81,13 @@ app:
         include:
             link: "Lien Kdo"
             quantity: "Quantité"
-            price: "Prix U."
+            price: "Prix Unitaire"
+            contrib: "Contribution"
             update: "Modifier le Kdo"
+            shop: "Participer"
+            contributor: "Contributeur(s)"
+            founded: "Kdo complété"
+    userkdo:
+        new:
+            title: "Participation a un cadeau"
+            title2: "Participation au cadeau %name%"

@@ -28,3 +28,6 @@ zz
 
 /web/resources/listkdo/*
 !/web/resources/listkdo/.gitkeep
+
+/web/resources/kdo/*
+!/web/resources/kdo/.gitkeep

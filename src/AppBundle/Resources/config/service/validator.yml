@@ -1,0 +1,6 @@
+services:
+    validator.usershare:
+        class: AppBundle\Validator\Constraints\ConstraintsShareUserValidator
+        arguments: [ @doctrine.orm.entity_manager, @security.context ]
+        tags:
+            - { name: validator.constraint_validator, alias: app_constraints_share_user_validator }
