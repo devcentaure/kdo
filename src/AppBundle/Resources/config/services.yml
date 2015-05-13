@@ -6,3 +6,4 @@ imports:
     - { resource: service/event.yml }
     - { resource: service/listener.yml }
     - { resource: service/security.yml }
+    - { resource: service/validator.yml }

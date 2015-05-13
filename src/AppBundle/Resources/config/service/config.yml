@@ -16,3 +16,9 @@ services:
         arguments:
             - @app_entity_kdo
             - %formtypekdo%
+
+    app_configuration_userkdo:
+        class: AppBundle\Doctrine\Configuration\ConfigurationUserKdo
+        arguments:
+            - @app_entity_userkdo
+            - %formtypeuserkdo%

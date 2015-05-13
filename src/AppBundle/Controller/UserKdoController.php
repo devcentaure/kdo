@@ -6,71 +6,72 @@ use AppBundle\AppEvent;
 use Symfony\Component\HttpFoundation\Request;
 use ZIMZIM\ToolsBundle\Controller\MainController;
 
-use AppBundle\Entity\Kdo;
-use AppBundle\Form\KdoType;
+use AppBundle\Entity\UserKdo;
+use AppBundle\Form\UserKdoType;
 
 /**
- * Kdo controller.
+ * UserKdo controller.
  *
  */
-class KdoController extends MainController
+class UserKdoController extends MainController
 {
 
     /**
-     * Lists all Kdo entities.
+     * Lists all UserKdo entities.
      *
      */
     public function indexAction()
     {
-        $manager = $this->container->get('app_manager_kdo');
+        $manager = $this->container->get('app_manager_userkdo');
         $data = array(
             'manager' => $manager,
-            'dir' => 'AppBundle:Kdo',
-            'show' => 'appbundle_kdo_show',
-            'edit' => 'appbundle_kdo_edit'
+            'dir' => 'AppBundle:UserKdo',
+            'show' => 'appbundle_userkdo_show',
+            'edit' => 'appbundle_userkdo_edit'
         );
 
         return $this->gridList($data);
     }
 
     /**
-     * Creates a new Kdo entity.
+     * Creates a new UserKdo entity.
      *
      */
     public function createAction(Request $request, $id)
     {
-        $manager = $this->container->get('app_manager_kdo');
+        $manager = $this->container->get('app_manager_userkdo');
         $entity = $manager->createEntity();
 
-        if(isset($id)){
-            $manager2 = $this->container->get('app_manager_listkdo');
+        if (isset($id)) {
+            $manager2 = $this->container->get('app_manager_kdo');
 
-            $listkdo = $manager2->find($id);
-            $entity->setListKdo($listkdo);
+            $kdo = $manager2->find($id);
+            $entity->setKdo($kdo);
         }
+
+        $security = $this->container->get('security.context');
 
         $form = $this->createCreateForm($entity, $manager);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
 
-            $security = $this->container->get('security.context');
-            if ($security->isGranted('LISTKDO_UPDATE', $entity->getListKdo()) === false) {
+            if ($security->isGranted('LISTKDO_VIEW', $entity->getKdo()->getListKdo()) === false) {
                 $this->displayError('app.listkdo.slug.noaccess');
 
                 return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
             }
 
-            $event = $this->container->get('app.event.kdo');
-            $event->setKdo($entity);
-            $this->container->get('event_dispatcher')->dispatch(AppEvent::KdoAdd, $event);
+            $event = $this->container->get('app.event.userkdo');
+            $event->setUserKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::UserKdoAdd, $event);
             $this->createSuccess();
 
-            return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getListkdo()->getSlug())));
+            return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getKdo()->getListkdo()->getSlug())));
         }
 
         return $this->render(
-            'AppBundle:Kdo:new.html.twig',
+            'AppBundle:UserKdo:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -79,17 +80,17 @@ class KdoController extends MainController
     }
 
     /**
-     * Creates a form to create a Kdo entity.
+     * Creates a form to create a UserKdo entity.
      *
-     * @param Kdo $entity The entity
+     * @param UserKdo $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Kdo $entity, $manager)
+    private function createCreateForm(UserKdo $entity, $manager)
     {
-        $link = $this->generateUrl('appbundle_kdo_create');
-        if($entity->getListkdo() !== null){
-            $link = $this->generateUrl('appbundle_kdo_create_listkdo', array('id' => $entity->getListkdo()->getId()));
+        $link = $this->generateUrl('appbundle_userkdo_create');
+        if($entity->getKdo() !== null){
+            $link = $this->generateUrl('appbundle_userkdo_create_kdo', array('id' => $entity->getKdo()->getId()));
         }
         $form = $this->createForm(
             $manager->getFormName(),
@@ -110,17 +111,17 @@ class KdoController extends MainController
     }
 
     /**
-     * Displays a form to create a new Kdo entity.
+     * Displays a form to create a new UserKdo entity.
      *
      */
     public function newAction()
     {
-        $manager = $this->container->get('app_manager_kdo');
+        $manager = $this->container->get('app_manager_userkdo');
         $entity = $manager->createEntity();
         $form = $this->createCreateForm($entity, $manager);
 
         return $this->render(
-            'AppBundle:Kdo:new.html.twig',
+            'AppBundle:UserKdo:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -129,23 +130,23 @@ class KdoController extends MainController
     }
 
     /**
-     * Finds and displays a Kdo entity.
+     * Finds and displays a UserKdo entity.
      *
      */
     public function showAction($id)
     {
-        $manager = $this->container->get('app_manager_kdo');
+        $manager = $this->container->get('app_manager_userkdo');
 
         $entity = $manager->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Kdo entity.');
+            throw $this->createNotFoundException('Unable to find UserKdo entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
-            'AppBundle:Kdo:show.html.twig',
+            'AppBundle:UserKdo:show.html.twig',
             array(
                 'entity' => $entity,
                 'delete_form' => $deleteForm->createView(),
@@ -154,21 +155,21 @@ class KdoController extends MainController
     }
 
     /**
-     * Displays a form to edit an existing Kdo entity.
+     * Displays a form to edit an existing UserKdo entity.
      *
      */
     public function editAction($id)
     {
-        $manager = $this->container->get('app_manager_kdo');
+        $manager = $this->container->get('app_manager_userkdo');
 
         $entity = $manager->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Kdo entity.');
+            throw $this->createNotFoundException('Unable to find UserKdo entity.');
         }
 
         $security = $this->container->get('security.context');
-        if ($security->isGranted('LISTKDO_UPDATE', $entity->getListKdo()) === false) {
+        if ($security->isGranted('LISTKDO_UPDATE', $entity->getKdo()->getListKdo()) === false) {
             $this->displayError('app.listkdo.slug.noaccess');
 
             return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
@@ -178,7 +179,7 @@ class KdoController extends MainController
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
-            'AppBundle:Kdo:edit.html.twig',
+            'AppBundle:UserKdo:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -188,19 +189,19 @@ class KdoController extends MainController
     }
 
     /**
-     * Creates a form to edit a Kdo entity.
+     * Creates a form to edit a UserKdo entity.
      *
-     * @param Kdo $entity The entity
+     * @param UserKdo $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Kdo $entity, $manager)
+    private function createEditForm(UserKdo $entity, $manager)
     {
         $form = $this->createForm(
             $manager->getFormName(),
             $entity,
             array(
-                'action' => $this->generateUrl('appbundle_kdo_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('appbundle_userkdo_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -215,17 +216,24 @@ class KdoController extends MainController
     }
 
     /**
-     * Edits an existing Kdo entity.
+     * Edits an existing UserKdo entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
-        $manager = $this->container->get('app_manager_kdo');
+        $manager = $this->container->get('app_manager_userkdo');
 
         $entity = $manager->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Kdo entity.');
+            throw $this->createNotFoundException('Unable to find UserKdo entity.');
+        }
+
+        $security = $this->container->get('security.context');
+        if ($security->isGranted('LISTKDO_UPDATE', $entity->getKdo()->getListKdo()) === false) {
+            $this->displayError('app.listkdo.slug.noaccess');
+
+            return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -234,24 +242,21 @@ class KdoController extends MainController
 
         if ($editForm->isValid()) {
 
-            $security = $this->container->get('security.context');
-            if ($security->isGranted('LISTKDO_UPDATE', $entity->getListkdo()) === false) {
-                $this->displayError('app.listkdo.slug.noaccess');
-
-                return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
-            }
-
-            $event = $this->container->get('app.event.kdo');
-            $event->setKdo($entity);
-            $this->container->get('event_dispatcher')->dispatch(AppEvent::KdoUpdate, $event);
+            $event = $this->container->get('app.event.userkdo');
+            $event->setUserKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::UserKdoUpdate, $event);
             $this->updateSuccess();
 
-            return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getListkdo()->getSlug())));
 
+            if($security->isGranted('ROLE_ADMIN') === true){
+                return $this->redirect($this->generateUrl('appbundle_userkdo'));
+            }else{
+                return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getKdo()->getListkdo()->getSlug())));
+            }
         }
 
         return $this->render(
-            'AppBundle:Kdo:edit.html.twig',
+            'AppBundle:UserKdo:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -261,36 +266,42 @@ class KdoController extends MainController
     }
 
     /**
-     * Deletes a Kdo entity.
+     * Deletes a UserKdo entity.
      *
      */
     public function deleteAction(Request $request, $id)
     {
+        $security = $this->container->get('security.context');
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        $security = $this->container->get('security.context');
-
         if ($form->isValid()) {
 
-            $manager = $this->container->get('app_manager_kdo');
+            $manager = $this->container->get('app_manager_userkdo');
 
             $entity = $manager->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Kdo entity.');
+                throw $this->createNotFoundException('Unable to find UserKdo entity.');
             }
 
-            if ($security->isGranted('LISTKDO_DELETE', $entity->getListkdo()) === false) {
+            if ($security->isGranted('LISTKDO_DELETE', $entity->getKdo()->getListkdo()) === false) {
                 $this->displayError('app.listkdo.slug.noaccess');
 
                 return $this->redirect($this->generateUrl('appbundle_listkdo_list'));
             }
 
-            $event = $this->container->get('app.event.kdo');
-            $event->setKdo($entity);
-            $this->container->get('event_dispatcher')->dispatch(AppEvent::KdoDelete, $event);
+            $event = $this->container->get('app.event.userkdo');
+            $event->setUserKdo($entity);
+            $this->container->get('event_dispatcher')->dispatch(AppEvent::UserKdoDelete, $event);
             $this->deleteSuccess();
+
+            if($security->isGranted('ROLE_ADMIN') === true){
+                return $this->redirect($this->generateUrl('appbundle_userkdo'));
+            }else{
+                return $this->redirect($this->generateUrl('appbundle_listkdo_slug', array('slug' => $entity->getKdo()->getListkdo()->getSlug())));
+            }
         }
 
         if ($security->isGranted('ROLE_ADMIN')){
@@ -301,7 +312,7 @@ class KdoController extends MainController
     }
 
     /**
-     * Creates a form to delete a Kdo entity by id.
+     * Creates a form to delete a UserKdo entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -310,7 +321,7 @@ class KdoController extends MainController
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('appbundle_kdo_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('appbundle_userkdo_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add(
                 'submit',

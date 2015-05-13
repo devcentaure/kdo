@@ -8,6 +8,10 @@ views:
         listkdo: "ListKdo"
         adminlistkdo: "Admin ListKdo"
         adminuserlistkdo: "Admin UserListKdo"
+        adminkdo: "Admin Kdo"
+        adminuserkdo: "Admin User Kdo"
+    footer:
+        title: Powered By zimzim62000
 button:
     show: Voir
     edit: Éditer

@@ -15,15 +15,24 @@
             <h2 class="title  text-left">
                 {{ 'app.home.index.title2'|trans }}
             </h2>
+
             <h3 class="title  text-left">
                 {{ 'app.home.index.title3'|trans }}
             </h3>
+
             <p class="nomargin nopadding text-left">
                 {{ 'app.home.index.desc1'|trans|raw }}
             </p>
             <a href="{{ path('appbundle_listkdo_new') }}" class="tiny button success">
                 {{ 'app.home.index.createlist'|trans }}
             </a>
+
+            <p class="nomargin nopadding text-center">
+                <a href="{{ path('appbundle_listkdo_list') }}" class="">
+                    {{ 'app.home.index.findlist'|trans }}
+                    <span class="icon-arrow-right2 icon-x-large vertical"></span>
+                </a>
+            </p>
         </div>
     </div>
 

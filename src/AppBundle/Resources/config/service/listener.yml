@@ -9,3 +9,8 @@ services:
         arguments: [ @doctrine.orm.entity_manager, @security.context ]
         tags:
             - { name: kernel.event_subscriber, priority: 254 }
+    app.listener.userkdo:
+        class: AppBundle\EventListener\UserKdoListener
+        arguments: [ @doctrine.orm.entity_manager, @security.context, @event_dispatcher, @app.event.kdo ]
+        tags:
+            - { name: kernel.event_subscriber, priority: 254 }

@@ -20,16 +20,36 @@
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="divider"></li>
-                    <li>
-                        <a href="{{ path('appbundle_listkdo') }}">
-                            {{ 'views.navbar.adminlistkdo'|trans }}
+                    <li class="has-dropdown not-click">
+                        <a href="#">
+                            <span class="icon-cog icon-large vertical"></span>
                         </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="{{ path('appbundle_userlistkdo') }}">
-                            {{ 'views.navbar.adminuserlistkdo'|trans }}
-                        </a>
+                        <ul class="dropdown">
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ path('appbundle_listkdo') }}">
+                                    {{ 'views.navbar.adminlistkdo'|trans }}
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ path('appbundle_userlistkdo') }}">
+                                    {{ 'views.navbar.adminuserlistkdo'|trans }}
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ path('appbundle_kdo') }}">
+                                    {{ 'views.navbar.adminkdo'|trans }}
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ path('appbundle_userkdo') }}">
+                                    {{ 'views.navbar.adminuserkdo'|trans }}
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 {% endif %}
 
