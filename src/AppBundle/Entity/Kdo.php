@@ -87,10 +87,7 @@ class Kdo implements ApyDataGridFilePathInterface
     /**
      * @var string
      *
-     * @Assert\NotBlank
-     * @Assert\Range(min=0, max=999999)
-     *
-     * @ORM\Column(name="forecast", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="forecast", type="decimal", precision=10, scale=2, nullable=true)
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false )
      */
