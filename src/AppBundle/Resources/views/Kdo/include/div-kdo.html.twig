@@ -12,7 +12,9 @@
 
         {% endif %}
         {{ entity.name }}
-        <img src="/{{ entity.webicon }}" class="vertical icon-listkdo-small"/>
+        {% if entity.icon %}
+            <img src="/{{ entity.webicon }}" class="vertical icon-listkdo-small"/>
+        {% endif %}
     </h3>
     {% if kdoBought == true %}
         <h3 class="text-center alert-box success nomargin">
