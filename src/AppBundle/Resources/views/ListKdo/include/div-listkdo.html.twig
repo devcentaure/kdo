@@ -6,7 +6,7 @@
             </div>
             <div class="small-9 columns">
                 <h2 class="text-center listkdo-title">
-                    <span class="panel inlineblock">{{ entity.name }}</span>
+                    <span class="panel-transparency inlineblock">{{ entity.name }}</span>
                 </h2>
             </div>
         </div>
@@ -14,10 +14,10 @@
             <div class="small-10 small-centered medium-6 medium-centered columns">
 
                 {% if entity.description != null %}
-                    <p class="panel">{{ entity.description }}</p>
+                    <p class="panel-transparency">{{ entity.description }}</p>
                 {% endif %}
 
-                <p class="text-right"><span class="panel inlineblock">{{ entity.user.username }}
+                <p class="text-right"><span class="panel-transparency inlineblock">{{ entity.user.username }}
                         -  {{ entity.date|localdate }}</span></p>
             </div>
         </div>

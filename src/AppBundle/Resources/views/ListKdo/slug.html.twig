@@ -10,7 +10,8 @@
     <div class="" style="
             background-image: url('/{{ entity.webpicture }}');
             background-size: 100% auto;
-            background-repeat: no-repeat;
+            background-repeat: repeat;
+            background-attachment: fixed;
             ">
 
         {% if is_granted('LISTKDO_UPDATE', entity) %}
@@ -33,9 +34,11 @@
 
 
         <div class="row">
-            <div class="medium-10 medium-centered columns panel">
+            <div class="medium-10 medium-centered columns">
                 <h2 class="text-center">
-                    {{ 'app.listkdo.slug.listkdo'|trans }}
+                     <span class="panel-transparency">
+                           {{ 'app.listkdo.slug.listkdo'|trans }}
+                             </span>
                 </h2>
                 {% for key,kdo in entity.kdos %}
 
@@ -43,6 +46,10 @@
 
                 {% endfor %}
             </div>
+        </div>
+
+
+        <div class="head-footer">
         </div>
 
     </div>
