@@ -62,6 +62,15 @@ app:
             update: "Modifier ma liste"
             addkdo: "Ajouter un cadeau à ma liste"
             listkdo: "Liste des Kdos"
+            helpto: >
+                 <span class=">Le concept : <br />
+                  - Ce site a été créé comme une vitrine afin de ne pas vous obliger a prendre les articles chez un seul revendeur, en occasion ou participer en pot commun...<br />
+                 Mode d'emploi : <br />
+                  - Vous pouvez choisir ce que vous souhaitez en cliquant sur "participer", mettre l'option "acheter le cadeau ou pot commun" disponible dans la liste déroulante puis valider.<br />
+                  * Si vous avez choisi l'option "acheter le cadeau", après validation, vous pouvez aller le commander via le lien kdo ou autres.<br />
+                  ** Si vous choisissez l'option "pot commun", après validation, vous revenez sur la liste de cadeau et apparait la somme que vous souhaitez mettre pour l'achat de cet article.
+                   Votre participation sera a remettre en main propre au destinataire.<br />
+                   Surtout ne pas oublier de valider votre option cela permet d'éviter les doublons. Des liens sont mis à votre disposition chez les différents distributeurs mais vous n'êtes pas obliger de l acheter via le lien. Dans certaines descriptions vous avez également la possibilité de prendre les articles en occasions (le bon coin ou autres).
         getaccess:
             title: "Demande d'accés à la liste %name%"
             wrongpass: "Désolé mais ce n'est pas le bon mot de passe !"

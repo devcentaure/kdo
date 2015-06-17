@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Kdo;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\SecurityContext;
 use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
 use APY\DataGridBundle\Grid\Source\Entity;
 
@@ -15,8 +16,22 @@ use APY\DataGridBundle\Grid\Source\Entity;
  */
 class UserKdoRepository extends EntityRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList(Entity $source)
+    public function getList(Entity $source, SecurityContext $securityContext)
     {
+        $tableAlias = $source->getTableAlias();
+        $source->manipulateQuery(
+            function ($query) use ($tableAlias, $securityContext) {
+                $user = $securityContext->getToken()->getUser();
+                if ($securityContext->isGranted('ROLE_ADMIN') === false && $securityContext->isGranted('ROLE_USER') === true) {
+                    $query
+                        ->join($tableAlias . '.kdo', 'kdo')
+                        ->join('kdo.listkdo', 'lkdo')
+                        ->andWhere('lkdo.user = :user')
+                        ->setParameter('user', $user);
+                }
+                $query->addOrderBy($tableAlias . '.createdAt', 'DESC');
+            }
+        );
         return $source;
     }
 }

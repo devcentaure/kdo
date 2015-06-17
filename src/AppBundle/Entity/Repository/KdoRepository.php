@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\SecurityContext;
 use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
 use APY\DataGridBundle\Grid\Source\Entity;
 
@@ -14,7 +15,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
  */
 class KdoRepository extends EntityRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList(Entity $source)
+    public function getList(Entity $source, SecurityContext $securityContext)
     {
         return $source;
     }
