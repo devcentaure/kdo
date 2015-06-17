@@ -3,7 +3,14 @@
     {% if kdo.forecast == entity.quantity*entity.price %}
         {% set kdoBought = true %}
     {% endif %}
-    <h3 class="text-center nomargin">
+    <h3 class="text-left nomargin">
+        {% if entity.icon %}
+            <img src="/{{ entity.webicon }}" class="vertical icon-listkdo-small"
+                 onmouseover="$('#kdo-{{ entity.id }}').show();" onmouseout="$('#kdo-{{ entity.id }}').hide();"/>
+        {% endif %}
+        <span class="panel-transparency">
+            {{ entity.name }}
+        </span>
         {% if is_granted('LISTKDO_UPDATE', entity.listkdo) and kdoBought == false %}
 
             <a href="{{ path('appbundle_kdo_edit', {'id': entity.id}) }}" class="tiny button  vertical">
@@ -11,30 +18,26 @@
             </a>
 
         {% endif %}
-        {{ entity.name }}
-        {% if entity.icon %}
-            <img src="/{{ entity.webicon }}" class="vertical icon-listkdo-small"/>
-        {% endif %}
     </h3>
-    {% if kdoBought == true %}
-        <h3 class="text-center alert-box success nomargin">
-            {{ 'app.kdo.include.founded'|trans }}
-        </h3>
-    {% endif %}
+
+    <div class="text-center">
+        <img style="display:none;" src="/{{ entity.webicon }}" class="" id="kdo-{{ entity.id }}"/>
+    </div>
+
     {% if entity.description %}
-        <p class=" nomargin">
+        <p class=" nomargin panel-transparency">
             {{ entity.description }}
         </p>
     {% endif %}
 
-    <ul class="inline-list text-center  nomargin">
+    <ul class="inline-list text-center panel-transparency nomargin">
 
-        <li>{{ 'app.kdo.include.quantity'|trans }} : {{ entity.quantity }}</li>
+        <li class="">{{ 'app.kdo.include.quantity'|trans }} : {{ entity.quantity }}</li>
 
-        <li>{{ 'app.kdo.include.price'|trans }} : {{ entity.price }} €</li>
+        <li class="">{{ 'app.kdo.include.price'|trans }} : {{ entity.price }} €</li>
 
         {% if entity.link %}
-            <li>
+            <li class="">
                 <a href="{{ entity.link }}" target="_blank" class="text-right">
                     {{ 'app.kdo.include.link'|trans }}
                     <span class="icon-arrow-right2 icon-large vertical"></span>
@@ -42,7 +45,7 @@
             </li>
         {% endif %}
         {% if is_granted('LISTKDO_VIEW', entity.listkdo) and kdoBought == false %}
-            <li>
+            <li class="">
                 <a href="{{ path('appbundle_userkdo_create_kdo', {'id': entity.id}) }}" class="text-right">
                     <span class="icon-coin-euro icon-large vertical"></span>
                     {{ 'app.kdo.include.shop'|trans }}
@@ -51,16 +54,27 @@
         {% endif %}
     </ul>
 
+    {% if kdoBought == true %}
+        <h3 class="text-center alert-box success nomargin">
+            {{ 'app.kdo.include.founded'|trans }}
+        </h3>
+    {% endif %}
+
     {% if entity.usersKdo|length > 0 %}
         <h5 class="text-center  nomargin">
-            {{ 'app.kdo.include.contributor'|trans }} - {{ entity.forecast }}€
+            <span class="panel-transparency">
+                {{ 'app.kdo.include.contributor'|trans }} - {{ entity.forecast }}€
+                </span>
         </h5>
         <ul class="inline-list">
             {% for userK in entity.usersKdo %}
-                <li >
+                <li class="panel-transparency">
                     <p class=" nomargin">
                         {{ userK.user.username }} {{ userK.userShare }} €
                     </p>
+                    {% if is_granted('LISTKDO_UPDATE', entity.listkdo) and kdoBought == false %}
+
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
