@@ -6,6 +6,7 @@ use AppBundle\Entity\ListKdo;
 use AppBundle\Entity\User;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\SecurityContext;
 use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
 
 /**
@@ -16,7 +17,7 @@ use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
  */
 class UserListKdoRepository extends EntityRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList(Entity $source)
+    public function getList(Entity $source, SecurityContext $securityContext)
     {
         return $source;
     }
