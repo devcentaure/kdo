@@ -37,12 +37,16 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        version: %assets_version%
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
+    variables:
+        version: [%assets_version%]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

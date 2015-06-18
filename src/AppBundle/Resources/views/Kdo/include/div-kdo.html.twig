@@ -52,6 +52,18 @@
                 </a>
             </li>
         {% endif %}
+
+        <li class="">
+            <strong>
+                {% if entity.secondHand == true %}
+                    {{ 'app.kdo.include.second_hand_yes'|trans }}
+                {% else %}
+                    {{ 'app.kdo.include.second_hand_no'|trans }}
+                {% endif %}
+            </strong>
+        </li>
+
+
     </ul>
 
     {% if kdoBought == true %}
@@ -70,7 +82,11 @@
             {% for userK in entity.usersKdo %}
                 <li class="panel-transparency">
                     <p class=" nomargin">
+                    {% if userK.auction %}
                         {{ userK.user.username }} {{ userK.userShare }} €
+                    {% else %}
+                        {{ userK.user.username }} - {{ 'app.kdo.include.boughtone'|trans }}
+                    {% endif %}
                     </p>
                     {% if is_granted('LISTKDO_UPDATE', entity.listkdo) and kdoBought == false %}
 

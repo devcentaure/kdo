@@ -34,6 +34,13 @@ class KdoType extends AbstractType
             ->add('name', null, array('label' => 'entity.kdo.name'))
             ->add('description', null, array('label' => 'entity.kdo.description', 'required' => false))
             ->add('link', null, array('label' => 'entity.kdo.link', 'required' => false))
+            ->add('secondHand', 'choice', array(
+                'label' => 'entity.kdo.second_hand',
+                'choices' => array(
+                    true => 'entity.kdo.second_hand_yes',
+                    false => 'entity.kdo.second_hand_no'
+                ),
+            ))
             ->add('quantity', null, array('label' => 'entity.kdo.quantity'))
             ->add('price', null, array('label' => 'entity.kdo.price'));
 

@@ -52,6 +52,16 @@ class ListKdo implements ApyDataGridFilePathInterface
      */
     private $description;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rules", type="text", nullable=true)
+     *
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     */
+    private $rules;
+
     /**
      * @var string
      *
@@ -493,4 +503,21 @@ class ListKdo implements ApyDataGridFilePathInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
+    /**
+     * @param string $rules
+     */
+    public function setRules($rules)
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
 }
