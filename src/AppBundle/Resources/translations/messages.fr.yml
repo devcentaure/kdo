@@ -10,6 +10,7 @@ entity:
         icon: "Vignette"
         picture: "Image de fond"
         helppass: "Aide mémoire pour aider vos amis à trouver le mot de passe ( surnom, nom de la maman, Etc ...)"
+        rules: "Reglement ( site d'achat, gestion de l'argent, adresse de destination, etc... )"
     userlistkdo:
         user: "Utilisateur"
         listkdo: "Liste de Kdo"
@@ -22,11 +23,15 @@ entity:
         price: "Prix Unitaire"
         listkdo: "Liste"
         icon: "photo"
+        second_hand: "Neuf ou occasion"
+        second_hand_yes: "Occasion"
+        second_hand_no: "Neuf"
     userkdo:
         user: "Utilisateur"
         kdo: "Kdo"
         createdat: "Le"
         usershare: "Montant"
+        usersharelabel: "Montant ( le montant ne pas dépasser la valeur du bien multiplier par la quantité )"
         auction:
             choice1: "Participer au pot commun"
             choice2: "Acheter le Kdo"
@@ -62,15 +67,20 @@ app:
             update: "Modifier ma liste"
             addkdo: "Ajouter un cadeau à ma liste"
             listkdo: "Liste des Kdos"
+            needhelp: "Besoin d'aide / Mode d'emploi"
+            rules: "Bonne conduite de la liste"
             helpto: >
-                 <span class=">Le concept : <br />
-                  - Ce site a été créé comme une vitrine afin de ne pas vous obliger a prendre les articles chez un seul revendeur, en occasion ou participer en pot commun...<br />
-                 Mode d'emploi : <br />
-                  - Vous pouvez choisir ce que vous souhaitez en cliquant sur "participer", mettre l'option "acheter le cadeau ou pot commun" disponible dans la liste déroulante puis valider.<br />
-                  * Si vous avez choisi l'option "acheter le cadeau", après validation, vous pouvez aller le commander via le lien kdo ou autres.<br />
-                  ** Si vous choisissez l'option "pot commun", après validation, vous revenez sur la liste de cadeau et apparait la somme que vous souhaitez mettre pour l'achat de cet article.
-                   Votre participation sera a remettre en main propre au destinataire.<br />
-                   Surtout ne pas oublier de valider votre option cela permet d'éviter les doublons. Des liens sont mis à votre disposition chez les différents distributeurs mais vous n'êtes pas obliger de l acheter via le lien. Dans certaines descriptions vous avez également la possibilité de prendre les articles en occasions (le bon coin ou autres).
+                <span class="subtitle">Le concept : </span><br />
+                - Ce site a été créé comme une vitrine afin de ne pas vous obliger a prendre les articles chez un seul revendeur, en occasion ou participer en pot commun...<br />
+                <span class="subtitle">Mode d'emploi :</span> <br />
+                - Vous pouvez choisir ce que vous souhaitez en cliquant sur <strong>"participer"</strong>. Ensuite vous avez le choix entre <strong>"acheter le cadeau"</strong> ou <strong>"pot commun"</strong> disponible dans la liste déroulante puis valider.<br />
+                * Si vous avez choisi l'option <strong>"acheter le cadeau"</strong>, après validation, vous pouvez aller le commander via le lien kdo ou autres.<br />
+                ** Si vous choisissez l'option <strong>"pot commun"</strong>, vous pouvez mettre la somme voulu.
+                Après validation, vous revenez sur la liste de cadeau et votre don sera pris en compte.<br />
+                Votre participation sera a remettre en main propre au destinataire.<br />
+                Surtout ne pas oublier de valider votre option cela permet d'éviter les doublons.
+                Des liens sont mis à votre disposition chez les différents distributeurs mais vous n'êtes pas obliger de l acheter via le lien.
+                Dans certaines descriptions vous avez également la possibilité de prendre les articles en occasions (le bon coin ou autres).
         getaccess:
             title: "Demande d'accés à la liste %name%"
             wrongpass: "Désolé mais ce n'est pas le bon mot de passe !"
@@ -91,11 +101,14 @@ app:
             link: "Lien Kdo"
             quantity: "Quantité"
             price: "Prix Unitaire"
+            boughtone: "Achat"
             contrib: "Contribution"
             update: "Modifier le Kdo"
             shop: "Participer"
             contributor: "Contributeur(s)"
             founded: "Kdo complété"
+            second_hand_yes: "Occasion accepté"
+            second_hand_no: "Article neuf"
     userkdo:
         new:
             title: "Participation a un cadeau"

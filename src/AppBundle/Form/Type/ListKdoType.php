@@ -34,6 +34,7 @@ class ListKdoType extends AbstractType
         $builder
             ->add('name', null, array('label' => 'entity.listkdo.name'))
             ->add('description', null, array('label' => 'entity.listkdo.description'))
+            ->add('rules', null, array('label' => 'entity.listkdo.rules'))
             ->add('slug', null, array('label' => 'entity.listkdo.slug'))
             ->add(
                 'date',

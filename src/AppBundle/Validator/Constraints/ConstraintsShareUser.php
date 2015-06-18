@@ -10,6 +10,7 @@ class ConstraintsShareUser extends Constraint
 {
     public $messageMax = 'entity.userkdo.shareuser_max';
     public $messageValue = 'entity.userkdo.shareuser_value';
+    public $messageFull = 'entity.userkdo.shareuser_full';
 
     public $classname = false;
 

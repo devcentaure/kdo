@@ -45,7 +45,11 @@ class ConstraintsShareUserValidator extends ConstraintValidator
             }
 
         } else {
-            $class->setUserShare($sommeDif);
+            if($sommeDif > $class->getKdo()->getPrice()){
+                $class->setUserShare($class->getKdo()->getPrice());
+            }else{
+                $this->context->addViolation($constraint->messageFull);
+            }
         }
     }
 }

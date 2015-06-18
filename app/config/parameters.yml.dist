@@ -28,3 +28,5 @@ parameters:
     twitter_secret: ThisTokenIsNotSoSecretChangeIt
 
     enabledlangage: {}
+
+    assets_version: 1.1

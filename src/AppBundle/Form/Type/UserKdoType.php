@@ -34,21 +34,28 @@ class UserKdoType extends AbstractType
         $security = $this->security;
         $builder
             ->add(
-                'userShare',
-                null,
-                array(
-                    'label' => 'entity.userkdo.usershare',
-                    'required' => false
-                )
-            )
-            ->add(
                 'auction',
                 'choice',
                 array(
                     'label' => 'entity.userkdo.auction.label',
                     'choices' => array(
-                        true => 'entity.userkdo.auction.choice1',
-                        false => 'entity.userkdo.auction.choice2'
+                        false => 'entity.userkdo.auction.choice2',
+                        true => 'entity.userkdo.auction.choice1'
+                    ),
+                    'attr' => array(
+                        'onChange' => 'function detect(value){if(value == 1){$(\'input.select-price\').show();}else{$(\'input.select-price\').hide();};};detect(this.value);'
+                    )
+                )
+            )
+            ->add(
+                'userShare',
+                null,
+                array(
+                    'label' => 'entity.userkdo.usersharelabel',
+                    'required' => false,
+                    'attr' => array(
+                        'class' => 'select-price',
+                        'style' => 'display:none;'
                     )
                 )
             );
