@@ -317,7 +317,7 @@ class ListKdoController extends MainController
 
         $manager = $this->container->get('app_manager_listkdo');
 
-        $entities = $manager->getRepository()->getListByDate(new \DateTime('now'));
+        $entities = $manager->getRepository()->getListByDate();
 
         return $this->render(
             'AppBundle:ListKdo:list.html.twig',
