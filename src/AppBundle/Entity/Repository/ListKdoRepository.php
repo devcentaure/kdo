@@ -20,13 +20,16 @@ class ListKdoRepository extends EntityRepository implements ApyDataGridRepositor
         return $source;
     }
 
-    public function getListByDate(\DateTime $date)
+    public function getListByDate(\DateTime $date = null)
     {
         $query = $this->createQueryBuilder('lk');
 
-        $query->where('lk.date >= :date')
-            ->setParameter('date', $date->format('Y-m-d'))
-            ->orderBy('lk.date', 'DESC');
+        if(isset($date)){
+            $query->where('lk.date >= :date')
+                ->setParameter('date', $date->format('Y-m-d'));
+        }
+        $query->orderBy('lk.date', 'DESC');
+        $query->setMaxResults(10);
 
         return $query->getQuery()->getResult();
     }
