@@ -7,44 +7,41 @@
 
 {% block page %}
 
-    <div class="" style="
-            background-image: url('/{{ entity.webpicture }}');
-            background-size: 100% auto;
-            background-repeat: no-repeat;
-            ">
+    {% if is_granted('LISTKDO_UPDATE', entity) %}
 
-        {% if is_granted('LISTKDO_UPDATE', entity) %}
+        <a href="{{ path('appbundle_listkdo_edit', {'id': entity.id}) }}" class="tiny button ">
+            {{ 'app.listkdo.slug.update'|trans }}
+        </a>
 
-            <a href="{{ path('appbundle_listkdo_edit', {'id': entity.id}) }}" class="tiny button ">
-                {{ 'app.listkdo.slug.update'|trans }}
-            </a>
+    {% endif %}
 
-        {% endif %}
+    {% include 'AppBundle:ListKdo:include/div-listkdo.html.twig' with{'entity': entity} %}
 
-        {% include 'AppBundle:ListKdo:include/div-listkdo.html.twig' with{'entity': entity} %}
+    {% if is_granted('LISTKDO_UPDATE', entity) %}
 
-        {% if is_granted('LISTKDO_UPDATE', entity) %}
+        <a href="{{ path('appbundle_kdo_create_listkdo', {'id': entity.id}) }}" class="tiny button ">
+            {{ 'app.listkdo.slug.addkdo'|trans }}
+        </a>
 
-            <a href="{{ path('appbundle_kdo_create_listkdo', {'id': entity.id}) }}" class="tiny button ">
-                {{ 'app.listkdo.slug.addkdo'|trans }}
-            </a>
-
-        {% endif %}
+    {% endif %}
 
 
-        <div class="row">
-            <div class="medium-10 medium-centered columns panel">
-                <h2 class="text-center">
-                    {{ 'app.listkdo.slug.listkdo'|trans }}
-                </h2>
-                {% for key,kdo in entity.kdos %}
+    <div class="row">
+        <div class="medium-10 medium-centered columns">
+            <h2 class="text-center">
+                     <span class="panel-transparency">
+                           {{ 'app.listkdo.slug.listkdo'|trans }}
+                             </span>
+            </h2>
+            {% for key,kdo in entity.kdos %}
 
-                    {% include 'AppBundle:Kdo:include/div-kdo.html.twig' with{'entity': kdo} %}
+                {% include 'AppBundle:Kdo:include/div-kdo.html.twig' with{'entity': kdo} %}
 
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
+    </div>
 
+    <div class="head-footer">
     </div>
 
 {% endblock %}

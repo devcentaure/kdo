@@ -7,11 +7,11 @@
     <meta name="description" content="{% block metadescription %}{% endblock metadescription %}" />
     {% if app.environment == 'prod' %}
         {% stylesheets '../app/Resources/public/css/min.css' filter='cssrewrite' %}
-        <link rel="stylesheet" href="{{ asset_url }}"/>
+        <link rel="stylesheet" href="{{ asset_url }}?{{ version }}"/>
         {% endstylesheets %}
     {% else %}
         {% stylesheets '../app/Resources/public/css/app.css' filter='cssrewrite' %}
-        <link rel="stylesheet" href="{{ asset_url }}"/>
+        <link rel="stylesheet" href="{{ asset_url }}?{{ version }}"/>
         {% endstylesheets %}
     {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
@@ -54,7 +54,7 @@
     {% block javascripts %}
         {% if app.environment == 'prod' %}
         {% javascripts '../app/Resources/public/js/min.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}?{{ version }}"></script>
         {% endjavascripts %}
         {% else %}
         {% javascripts
@@ -64,7 +64,7 @@
         '../app/Resources/public/js/vendor/foundation.min.js'
         '../app/Resources/public/js/vendor/foundation.topbar.js'
         '../app/Resources/public/js/vendor/owl.carousel.min.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}?{{ version }}"></script>
         {% endjavascripts %}
         {% endif %}
         <script>

@@ -58,6 +58,9 @@ security:
         - { path: ^/kdo/$, role: ROLE_ADMIN }
         - { path: ^/kdo/new/$, role: ROLE_ADMIN }
         - { path: ^/kdo/, role: ROLE_USER }
-        - { path: ^/userkdo/$, role: ROLE_ADMIN }
         - { path: ^/userkdo/new/$, role: ROLE_ADMIN }
-        - { path: ^/userkdo/, role: ROLE_USER }
+        - { path: ^/userkdo/[0-9]+/update/$, role: ROLE_ADMIN }
+        - { path: ^/userkdo/[0-9]+/edit/$, role: ROLE_ADMIN }
+        - { path: ^/userkdo/$, role: ROLE_USER }
+        - { path: ^/userkdo/[0-9]+/delete/$, role: ROLE_USER }
+        - { path: ^/userkdo/create/[0-9]+/$, role: ROLE_USER }

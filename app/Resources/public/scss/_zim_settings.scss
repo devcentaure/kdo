@@ -15,3 +15,31 @@ $include-html-global-classes: $include-html-classes;
 
 /** Panel */
 $panel-padding: 0.75rem;
+
+$white: #ededed;
+
+
+/** font */
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Playfair+Display);
+
+@import url(http://fonts.googleapis.com/css?family=Dancing+Script:400,700|Pinyon+Script);
+
+$base-font-size: 14px;
+
+//$font-title: "Droid Serif", serif;
+//$font-text :  "Playfair Dislay", serif;
+$font-title: 'Dancing Script', cursive;
+//$font-title: 'Pinyon Script', cursive;
+//$font-text :  "Playfair Dislay", serif;
+$font-text :  'Dancing Script', cursive;
+
+$body-font-family: $font-text;
+
+$header-font-family: $font-title;
+
+/** p */
+//$paragraph-font-size : 1.2rem;
+
+/** bg */
+$body-bg: #FEDBFF
+

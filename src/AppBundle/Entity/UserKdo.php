@@ -67,7 +67,7 @@ class UserKdo
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      *
      */
-    private $auction = true;
+    private $auction = false;
 
     /**
      * @var \DateTime

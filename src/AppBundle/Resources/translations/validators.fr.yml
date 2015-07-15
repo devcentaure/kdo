@@ -4,3 +4,4 @@ entity:
     userkdo:
         shareuser_max: "Le montant est supérieur à la somme maximal du Kdo"
         shareuser_value: "Le montant ne peux excéder %value% €"
+        shareuser_full: "Vous ne pouvez plus acheter l'article, le montant restant est inferieur au prix unitaire"

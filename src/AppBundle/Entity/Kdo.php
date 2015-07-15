@@ -85,12 +85,9 @@ class Kdo implements ApyDataGridFilePathInterface
 
 
     /**
-     * @var string
+     * @var float
      *
-     * @Assert\NotBlank
-     * @Assert\Range(min=0, max=999999)
-     *
-     * @ORM\Column(name="forecast", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="forecast", type="decimal", precision=10, scale=2, nullable=true)
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false )
      */
@@ -126,6 +123,16 @@ class Kdo implements ApyDataGridFilePathInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserKdo", mappedBy="kdo", cascade={"persist", "remove"})
      */
     private $usersKdo;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="second_hand", type="boolean")
+     *
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false )
+     */
+    private $secondHand = false;
 
 
     public function __construct(){
@@ -473,5 +480,23 @@ class Kdo implements ApyDataGridFilePathInterface
     public function getForecast()
     {
         return $this->forecast;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSecondHand()
+    {
+        return $this->secondHand;
+    }
+
+    /**
+     * @param mixed $secondHand
+     */
+    public function setSecondHand($secondHand)
+    {
+        $this->secondHand = $secondHand;
+
+        return $this;
     }
 }

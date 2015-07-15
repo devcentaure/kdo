@@ -51,7 +51,6 @@ class KdoListener implements EventSubscriberInterface
     {
         $this->em->remove($kdoEvent->getKdo());
         $this->em->flush();
-        $this->kdoCalculate($kdoEvent);
     }
 
     public function kdoCalculate(KdoEvent $kdoEvent)
